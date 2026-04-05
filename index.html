@@ -276,7 +276,7 @@ body::after{
 .powerup-badge.compass{background:rgba(124,77,255,0.08);color:var(--num-4);border:1px solid rgba(124,77,255,0.15);}
 .powerup-badge.oracle{background:rgba(0,229,255,0.08);color:var(--num-6);border:1px solid rgba(0,229,255,0.15);}
 .powerup-badge.rewind{background:rgba(180,140,255,0.08);color:#B48CFF;border:1px solid rgba(180,140,255,0.15);}
-.powerup-badge.hound{background:rgba(180,140,100,0.1);color:#C8A878;border:1px solid rgba(180,140,100,0.2);}
+.powerup-badge.lantern{background:rgba(200,168,120,0.1);color:#C8A878;border:1px solid rgba(200,168,120,0.2);}
 .powerup-badge.cursed{background:rgba(232,36,60,0.1);color:var(--danger);border:1px solid rgba(232,36,60,0.25);}
 .powerup-badge:hover{transform:scale(1.05);filter:brightness(1.3);}
 .powerup-badge.used{opacity:0.2;cursor:default;text-decoration:line-through;}
@@ -428,7 +428,7 @@ body::after{
 .powerup-option .p-glyph.compass-g{color:var(--num-4);text-shadow:0 0 8px rgba(124,77,255,0.3);}
 .powerup-option .p-glyph.oracle-g{color:var(--num-6);text-shadow:0 0 8px rgba(0,229,255,0.3);}
 .powerup-option .p-glyph.rewind-g{color:#B48CFF;text-shadow:0 0 8px rgba(180,140,255,0.3);}
-.powerup-option .p-glyph.hound-g{color:#C8A878;text-shadow:0 0 8px rgba(180,140,100,0.3);}
+.powerup-option .p-glyph.lantern-g{color:#C8A878;text-shadow:0 0 8px rgba(200,168,120,0.3);}
 .shop-header{font-size:11px;color:var(--text-dim);letter-spacing:2px;margin-bottom:4px;}
 .shop-shards{font-family:var(--font-mono);font-size:16px;color:var(--accent);margin-bottom:12px;}
 .shop-grid{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 0;}
@@ -467,6 +467,26 @@ body::after{
 .hard-mode-toggle.locked .hm-label{color:var(--text-dim);}
 .hard-mode-toggle .hm-sub{font-size:8px;letter-spacing:1.5px;color:var(--text-dim);display:block;margin-top:2px;}
 
+/* ======== CLASS PICKER ======== */
+.class-picker{display:flex;gap:8px;margin:0 auto 18px;max-width:320px;justify-content:center;flex-wrap:wrap;}
+.class-tile{flex:1;min-width:140px;max-width:160px;padding:12px 10px;border:1px solid rgba(255,255,255,0.06);border-radius:2px;background:rgba(0,0,0,0.25);cursor:pointer;transition:all 0.15s;text-align:center;}
+.class-tile:hover:not(.locked){border-color:rgba(212,232,0,0.3);background:rgba(212,232,0,0.04);transform:translateY(-2px);}
+.class-tile.active{border-color:var(--accent);background:rgba(212,232,0,0.08);box-shadow:0 0 20px rgba(212,232,0,0.15);}
+.class-tile.locked{opacity:0.4;cursor:not-allowed;}
+.class-tile .ct-icon{font-size:22px;color:var(--accent);margin-bottom:4px;text-shadow:0 0 8px var(--glow-accent);display:block;}
+.class-tile.active .ct-icon{text-shadow:0 0 12px var(--glow-accent);}
+.class-tile.locked .ct-icon{color:var(--text-dim);text-shadow:none;}
+.class-tile .ct-name{font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:1.5px;color:var(--text);margin-bottom:4px;text-transform:uppercase;}
+.class-tile.active .ct-name{color:var(--accent);}
+.class-tile.locked .ct-name{color:var(--text-dim);}
+.class-tile .ct-desc{font-size:8px;letter-spacing:0.5px;color:var(--text-dim);line-height:1.4;}
+.class-tile .ct-unlock{font-size:8px;letter-spacing:1px;color:var(--text-dim);text-transform:uppercase;margin-top:4px;font-style:italic;}
+.class-picker-label{font-size:9px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+
+/* ======== CLASS BADGE (in-game) ======== */
+.class-badge{display:inline-flex;align-items:center;gap:4px;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border-radius:2px;background:rgba(212,232,0,0.06);color:var(--accent);border:1px solid rgba(212,232,0,0.2);font-weight:500;}
+.class-badge .cb-icon{font-size:10px;}
+
 /* ======== MODIFIER BADGES ======== */
 .modifier-bar{display:flex;gap:6px;padding:4px 14px 6px;background:rgba(0,0,0,0.15);justify-content:center;min-height:20px;align-items:center;flex-wrap:wrap;}
 .modifier-badge{display:inline-flex;align-items:center;gap:4px;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border-radius:2px;background:rgba(232,36,60,0.08);color:var(--danger);border:1px solid rgba(232,36,60,0.2);font-weight:500;}
@@ -493,6 +513,50 @@ body::after{
   30%{box-shadow:0 0 140px rgba(232,36,60,0.4),inset 0 0 80px rgba(232,36,60,0.1);}
   100%{box-shadow:0 0 60px rgba(0,0,0,0.8),inset 0 0 80px rgba(0,0,0,0.3);}
 }
+
+/* ======== CODEX ======== */
+.codex-screen{padding:28px 22px 22px;max-width:520px;margin:0 auto;max-height:82vh;overflow-y:auto;}
+.codex-screen::-webkit-scrollbar{width:6px;}
+.codex-screen::-webkit-scrollbar-track{background:rgba(0,0,0,0.25);}
+.codex-screen::-webkit-scrollbar-thumb{background:rgba(212,232,0,0.15);border-radius:2px;}
+.codex-screen::-webkit-scrollbar-thumb:hover{background:rgba(212,232,0,0.3);}
+.codex-header{text-align:center;margin-bottom:22px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.codex-header h2{font-family:var(--font-display);font-size:22px;font-weight:700;letter-spacing:6px;margin:0 0 6px;color:var(--text);text-transform:uppercase;}
+.codex-header .codex-flavor{font-size:10px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;}
+.cdx-section{margin-bottom:20px;}
+.cdx-h{font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;padding-bottom:4px;border-bottom:1px solid rgba(212,232,0,0.15);text-shadow:0 0 8px var(--glow-accent);}
+.cdx-h.danger{color:var(--danger);border-bottom-color:rgba(232,36,60,0.15);text-shadow:0 0 8px var(--glow-danger);}
+.cdx-body{font-size:11px;color:var(--text);line-height:1.6;letter-spacing:0.3px;}
+.cdx-sub{font-size:9px;color:var(--text-dim);line-height:1.5;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
+.cdx-kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:10px;line-height:1.5;}
+.cdx-kv span:nth-child(odd){color:var(--accent);font-family:var(--font-mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;}
+.cdx-kv span:nth-child(even){color:var(--text);}
+.cdx-table{width:100%;font-family:var(--font-mono);font-size:10px;border-collapse:collapse;}
+.cdx-table th{color:var(--text-dim);font-weight:500;text-transform:uppercase;letter-spacing:1.5px;padding:4px 8px;text-align:left;font-size:9px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.cdx-table td{color:var(--text);padding:6px 8px;border-bottom:1px solid rgba(255,255,255,0.03);}
+.cdx-table td:first-child{color:var(--accent);font-weight:700;}
+.cdx-list{margin:0;padding-left:16px;font-size:11px;color:var(--text);line-height:1.7;letter-spacing:0.3px;}
+.cdx-list li{margin-bottom:2px;}
+.cdx-list li::marker{color:var(--accent);}
+.cdx-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.cdx-relic{padding:10px 12px;border:1px solid rgba(255,255,255,0.06);border-radius:2px;background:rgba(0,0,0,0.25);transition:all 0.15s;}
+.cdx-relic:hover{border-color:rgba(212,232,0,0.3);background:rgba(212,232,0,0.03);}
+.cdx-relic.cursed{border-color:rgba(232,36,60,0.15);}
+.cdx-relic.cursed:hover{border-color:rgba(232,36,60,0.35);background:rgba(232,36,60,0.04);}
+.cr-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.cr-g{font-size:18px;color:var(--accent);text-shadow:0 0 6px var(--glow-accent);flex-shrink:0;width:20px;text-align:center;line-height:1;}
+.cdx-relic.cursed .cr-g{color:var(--danger);text-shadow:0 0 6px var(--glow-danger);}
+.cr-n{font-family:var(--font-display);font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text);flex:1;}
+.cdx-relic.cursed .cr-n{color:var(--danger);}
+.cr-p{font-family:var(--font-mono);font-size:9px;color:var(--accent);letter-spacing:0.5px;}
+.cdx-relic.cursed .cr-p{color:var(--danger);}
+.cr-d{font-size:9px;color:var(--text-dim);line-height:1.5;letter-spacing:0.3px;}
+.cr-boon{font-size:9px;color:var(--text);line-height:1.5;letter-spacing:0.3px;}
+.cr-curse{font-size:9px;color:var(--danger);line-height:1.5;letter-spacing:0.3px;margin-top:3px;opacity:0.85;}
+.codex-back-btn{margin-top:16px;width:100%;font-size:11px;letter-spacing:3px;padding:10px;}
+.codex-link{background:none;border:none;color:var(--text-dim);font-family:var(--font-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;padding:6px 14px;margin-top:4px;transition:all 0.15s;}
+.codex-link:hover{color:var(--accent);text-shadow:0 0 8px var(--glow-accent);}
+@media (max-width:480px){.cdx-grid{grid-template-columns:1fr;}}
 
 /* ======== MUTE ======== */
 .mute-btn{
@@ -613,12 +677,15 @@ const ICONS = {
   compass_glyph: '&#x2316;', // crosshair — the compass
   oracle_glyph: '&#x25CE;',  // bullseye — the oracle
   rewind_glyph: '&#x21BA;',  // loop arrow — rewind
-  hound_glyph: '&#x2641;',   // earth — the hound
-  leech_glyph: '&#x2620;',   // skull+bones — the leech
+  lantern_glyph: '&#x2600;',   // black sun — the lantern
+  hex_glyph: '&#x2627;',   // chi rho — the hex
   tithe_glyph: '&#x2020;',   // dagger — blood tithe
   bargain_glyph: '&#x2622;', // trefoil — the bargain
-  // Level runes
-  runes: ['&#x16A0;', '&#x16A2;', '&#x16A6;', '&#x16B1;', '&#x16B7;'], // elder futhark
+  scapegoat_glyph: '&#x2625;', // ankh — the scapegoat
+  pyre_glyph: '&#x1F525;',    // fire — the pyre
+  rift_glyph: '&#x2739;',      // 12-point star — the rift
+  // Level indicators — I-Ching trigrams (descent/depth)
+  runes: ['&#x2630;', '&#x2631;', '&#x2632;', '&#x2633;', '&#x2634;'], // ☰ ☱ ☲ ☳ ☴
 };
 
 // ============================================================
@@ -808,11 +875,11 @@ const NARRATOR={
   slowClear:['Cautious. The grid respects that.','You think before you act. Good.','Patience is its own armor.','Measured steps through the dark.'],
   firstDeath:['Everyone falls the first time.','Now you know what waits.','The grid teaches through pain.','It always starts this way.'],
   repeatedDeath:['Again.','How many times now?','The grid is patient. Are you?','You keep returning. It keeps waiting.'],
-  boughtWard:['Insurance. Wise, or fearful?','The Ward will not save you twice.','You trust the Ward more than yourself.'],
+  boughtWard:['Insurance. Wise, or fearful?','The Aegis will not save you twice.','You trust the Aegis more than yourself.'],
   boughtCursed:['A dangerous trade.','The grid approves of your greed.','Power always costs something.','You bargain with things you do not understand.'],
   combo:['The rhythm builds.','Faster. Faster.','You found the flow.','The grid trembles.'],
   bigCombo:['Relentless.','The grid cannot keep up.','Something stirs. You do not care.','Nothing can stop this.'],
-  shieldBlock:['The Ward shatters. You survive.','One life, spent.','It held. Barely.','The Ward remembers what you do not.'],
+  shieldBlock:['The Aegis shatters. You survive.','One life, spent.','It held. Barely.','The Aegis remembers what you do not.'],
   noShards:['Empty-handed.','The grid gives nothing freely.','You come to the shop with dust.'],
   richShop:['Wealth from the grid.','Spend wisely. Or recklessly.','The grid lets you choose your chains.'],
   depth5:['The deepest layer.','Few reach this far.','The grid saves its worst for last.','Everything you have. It will not be enough.'],
@@ -841,7 +908,7 @@ const NARRATOR={
       case 'shieldBlock':return this._pick('shieldBlock');
       case 'combo':return ctx?.count>=6?this._pick('bigCombo'):this._pick('combo');
       case 'boughtCursed':{this._cursedBought++;return this._pick('boughtCursed');}
-      case 'boughtWard':{this._wardsBought++;return this._wardsBought>2?'You always buy the Ward.':this._pick('boughtWard');}
+      case 'boughtWard':{this._wardsBought++;return this._wardsBought>2?'You always buy the Aegis.':this._pick('boughtWard');}
       case 'shopOpen':{
         const shards=ctx?.shards||0;
         if(shards<5)return this._pick('noShards');
@@ -880,20 +947,30 @@ const LEVELS=[
 const NUM_COLORS=['','var(--num-1)','var(--num-2)','var(--num-3)','var(--num-4)','var(--num-5)','var(--num-6)','var(--num-7)','var(--num-8)'];
 
 class Game{
-  constructor(){this.hardMode=false;this.reset();}
+  constructor(){this.hardMode=false;this.gameClass='sweeper';this.reset();}
   reset(){
     this.level=0;this.shards=0;this.powerups=[];
+    this.bargainCurseTime=0;this._fracShards=0;this.scapegoatCharges=0;
     this.totalDepths=this.hardMode?5:4;
     this.initLevel();
+  }
+  awardShards(n){
+    if(this.bargainCurseTime>0){
+      this._fracShards+=n*0.5;
+      const whole=Math.floor(this._fracShards);
+      this.shards+=whole;this._fracShards-=whole;
+    }else{this.shards+=n;}
   }
   initLevel(){
     const cfg=LEVELS[this.level];
     this.modifiers=this.hardMode?rollModifiers(this.level):[];
     this.rows=cfg.rows;this.cols=cfg.cols;this.mineCount=cfg.mines;
-    this.timeRemaining=cfg.time;this.maxTime=cfg.time;
+    let t=cfg.time;
+    if(this.gameClass==='wraith')t-=15;
+    this.timeRemaining=t;this.maxTime=t;
     this.board=Array.from({length:this.rows},()=>Array.from({length:this.cols},()=>({mine:false,revealed:false,flagged:false,adjacent:0})));
-    this.gameOver=false;this.gameWon=false;this.firstClick=true;this.revealedCount=0;this.shieldUsed=false;this.titheCursed=false;
-    this.surged=false;
+    this.gameOver=false;this.gameWon=false;this.firstClick=true;this.revealedCount=0;this.shieldUsed=false;this.aegisCursed=false;
+    this.surged=false;this.timeMultiplier=1;
   }
   hasModifier(id){return this.modifiers.some(m=>m.id===id);}
   placeMines(safeR,safeC){
@@ -941,7 +1018,7 @@ class Game{
     const out=[{r,c}];
     if(cell.mine){
       const si=this.powerups.indexOf('shield');
-      if(si!==-1&&!this.shieldUsed&&!this.titheCursed){
+      if(si!==-1&&!this.shieldUsed&&!this.aegisCursed){
         this.shieldUsed=true;this.powerups.splice(si,1);
         cell.revealed=false;this.revealedCount--;cell.mine=false;
         cell.adjacent=this.countAdj(r,c);
@@ -952,9 +1029,22 @@ class Game{
         }
         return[{r,c,shieldBlocked:true}];
       }
+      const sg=this.powerups.indexOf('scapegoat');
+      if(sg!==-1&&this.scapegoatCharges>0&&!this.aegisCursed){
+        this.scapegoatCharges--;this.timeMultiplier*=2;
+        if(this.scapegoatCharges<=0)this.powerups=this.powerups.filter(p=>p!=='scapegoat');
+        cell.revealed=false;this.revealedCount--;cell.mine=false;
+        cell.adjacent=this.countAdj(r,c);
+        for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){
+          const nr=r+dr,nc=c+dc;
+          if(nr>=0&&nr<this.rows&&nc>=0&&nc<this.cols&&!this.board[nr][nc].mine)
+            this.board[nr][nc].adjacent=this.countAdj(nr,nc);
+        }
+        return[{r,c,scapegoatBlocked:true}];
+      }
       this.gameOver=true;this.gameWon=false;return[{r,c,mine:true}];
     }
-    this.shards++;
+    this.awardShards(1);
     cell.revealedAt=Date.now();
     if(cell.adjacent===0)
       for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){
@@ -993,18 +1083,21 @@ class Game{
   checkWin(){
     if(this.revealedCount>=this.rows*this.cols-this.mineCount){
       this.gameWon=true;this.gameOver=true;
-      this.shards+=10*(this.level+1);this.shards+=Math.floor(this.timeRemaining/5);
+      this.awardShards(10*(this.level+1)+Math.floor(this.timeRemaining/5));
     }
   }
-  tick(){if(this.gameOver)return;this.timeRemaining--;if(this.timeRemaining<=0){this.timeRemaining=0;this.gameOver=true;this.gameWon=false;}}
+  tick(){if(this.gameOver)return;const mult=this.timeMultiplier||1;this.timeRemaining=Math.max(0,this.timeRemaining-mult);if(this.bargainCurseTime>0)this.bargainCurseTime=Math.max(0,this.bargainCurseTime-1);if(this.timeRemaining<=0){this.gameOver=true;this.gameWon=false;}}
   useScan(){
     const idx=this.powerups.indexOf('scan');if(idx===-1)return null;
-    this.powerups.splice(idx,1);
     const safe=[];
     for(let r=0;r<this.rows;r++)for(let c=0;c<this.cols;c++)
       if(!this.board[r][c].mine&&!this.board[r][c].revealed&&!this.board[r][c].flagged)safe.push({r,c});
     if(!safe.length)return null;
-    const p=safe[Math.floor(Math.random()*safe.length)];return this.reveal(p.r,p.c);
+    this.powerups.splice(idx,1);
+    const picks=safe.sort(()=>Math.random()-0.5).slice(0,3);
+    const revealed=[];
+    picks.forEach(({r,c})=>{if(!this.board[r][c].revealed){const res=this.reveal(r,c);revealed.push(...res);}});
+    return revealed.length?revealed:null;
   }
   useTimeWarp(){
     const idx=this.powerups.indexOf('timewarp');if(idx===-1)return false;
@@ -1023,22 +1116,27 @@ class Game{
   }
   useOracle(){
     const idx=this.powerups.indexOf('oracle');if(idx===-1)return null;
-    this.powerups.splice(idx,1);
-    const unrevealed=[];
+    const candidates=[];
     for(let r=0;r<this.rows-1;r++)for(let c=0;c<this.cols-1;c++){
-      let safe=true;
-      for(let dr=0;dr<2;dr++)for(let dc=0;dc<2;dc++)
-        if(this.board[r+dr][c+dc].mine||this.board[r+dr][c+dc].revealed)safe=false;
-      if(safe)unrevealed.push({r,c});
+      let hasUnknown=false;
+      for(let dr=0;dr<2;dr++)for(let dc=0;dc<2;dc++){
+        const cell=this.board[r+dr][c+dc];
+        if(!cell.revealed&&!cell.flagged){hasUnknown=true;break;}
+      }
+      if(hasUnknown)candidates.push({r,c});
     }
-    if(!unrevealed.length)return null;
-    const corner=unrevealed[Math.floor(Math.random()*unrevealed.length)];
-    const revealed=[];
+    if(!candidates.length)return null;
+    this.powerups.splice(idx,1);
+    const corner=candidates[Math.floor(Math.random()*candidates.length)];
+    const revealed=[],flagged=[];
     for(let dr=0;dr<2;dr++)for(let dc=0;dc<2;dc++){
       const nr=corner.r+dr,nc=corner.c+dc;
-      if(!this.board[nr][nc].revealed){const res=this.reveal(nr,nc);revealed.push(...res);}
+      const cell=this.board[nr][nc];
+      if(cell.revealed||cell.flagged)continue;
+      if(cell.mine){cell.flagged=true;flagged.push({r:nr,c:nc});}
+      else{const res=this.reveal(nr,nc);revealed.push(...res);}
     }
-    return revealed.length?revealed:null;
+    return{revealed,flagged};
   }
   useRewind(){
     const idx=this.powerups.indexOf('rewind');if(idx===-1)return false;
@@ -1048,18 +1146,22 @@ class Game{
     this.timeRemaining=keepTime;this.maxTime=keepMax;
     return true;
   }
-  useHound(){
-    const idx=this.powerups.indexOf('hound');if(idx===-1)return{status:'none'};
-    this.powerups.splice(idx,1);
-    const flagged=[];
-    for(let r=0;r<this.rows;r++)for(let c=0;c<this.cols;c++)
-      if(this.board[r][c].flagged)flagged.push({r,c});
-    if(!flagged.length)return{status:'none'};
-    const target=flagged[Math.floor(Math.random()*flagged.length)];
-    if(!this.board[target.r][target.c].mine){
-      this.gameOver=true;this.gameWon=false;
-      return{status:'badFlag',r:target.r,c:target.c};
+  useLantern(){
+    const idx=this.powerups.indexOf('lantern');if(idx===-1)return{status:'none'};
+    const candidates=[];
+    for(let r=0;r<this.rows;r++)for(let c=0;c<this.cols;c++){
+      if(!this.board[r][c].flagged||!this.board[r][c].mine)continue;
+      let hasEmpty=false;
+      for(let dr=-1;dr<=1&&!hasEmpty;dr++)for(let dc=-1;dc<=1&&!hasEmpty;dc++){
+        if(!dr&&!dc)continue;
+        const nr=r+dr,nc=c+dc;
+        if(nr>=0&&nr<this.rows&&nc>=0&&nc<this.cols&&!this.board[nr][nc].mine&&!this.board[nr][nc].revealed)hasEmpty=true;
+      }
+      if(hasEmpty)candidates.push({r,c});
     }
+    if(!candidates.length)return{status:'none'};
+    this.powerups.splice(idx,1);
+    const target=candidates[Math.floor(Math.random()*candidates.length)];
     const revealed=[];
     for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){
       if(!dr&&!dc)continue;
@@ -1070,10 +1172,10 @@ class Game{
     }
     return{status:'ok',revealed};
   }
-  useLeech(){
-    const idx=this.powerups.indexOf('leech');if(idx===-1)return null;
+  useHex(){
+    const idx=this.powerups.indexOf('hex');if(idx===-1)return null;
     this.powerups.splice(idx,1);
-    this.timeRemaining=Math.max(this.timeRemaining-25,1);
+    this.aegisCursed=true;
     const safe=[];
     for(let r=0;r<this.rows;r++)for(let c=0;c<this.cols;c++)
       if(!this.board[r][c].mine&&!this.board[r][c].revealed&&!this.board[r][c].flagged)safe.push({r,c});
@@ -1083,24 +1185,101 @@ class Game{
     return revealed.length?revealed:null;
   }
   useTithe(){
-    const idx=this.powerups.indexOf('tithe');if(idx===-1)return 0;
+    const idx=this.powerups.indexOf('tithe');if(idx===-1)return null;
     this.powerups.splice(idx,1);
-    this.titheCursed=true;
+    let removed=0;
+    for(let r=0;r<this.rows;r++)for(let c=0;c<this.cols;c++){
+      if(this.board[r][c].flagged){this.board[r][c].flagged=false;removed++;}
+    }
     const mines=[];
     for(let r=0;r<this.rows;r++)for(let c=0;c<this.cols;c++)
       if(this.board[r][c].mine&&!this.board[r][c].flagged)mines.push({r,c});
     const toFlag=mines.sort(()=>Math.random()-0.5).slice(0,5);
     toFlag.forEach(({r,c})=>{this.board[r][c].flagged=true;});
-    return toFlag.length;
+    return{removed,added:toFlag.length};
   }
   useBargain(){
     const idx=this.powerups.indexOf('bargain');if(idx===-1)return false;
     this.powerups.splice(idx,1);
-    this.shards=Math.floor(this.shards/2);
-    this.timeRemaining=Math.min(this.timeRemaining+45,this.maxTime+45);
+    this.bargainCurseTime+=60;
+    this.timeRemaining=Math.min(this.timeRemaining+40,this.maxTime+40);
     return true;
   }
+  useRift(){
+    const idx=this.powerups.indexOf('rift');if(idx===-1)return null;
+    const candidates=[];
+    for(let r=0;r<this.rows-2;r++)for(let c=0;c<this.cols-2;c++){
+      let hasUnknown=false;
+      for(let dr=0;dr<3&&!hasUnknown;dr++)for(let dc=0;dc<3&&!hasUnknown;dc++){
+        const cell=this.board[r+dr][c+dc];
+        if(!cell.revealed&&!cell.flagged)hasUnknown=true;
+      }
+      if(hasUnknown)candidates.push({r,c});
+    }
+    if(!candidates.length)return null;
+    this.powerups.splice(idx,1);
+    this.timeRemaining=Math.max(this.timeRemaining-20,1);
+    const corner=candidates[Math.floor(Math.random()*candidates.length)];
+    const revealed=[],flagged=[];
+    for(let dr=0;dr<3;dr++)for(let dc=0;dc<3;dc++){
+      const nr=corner.r+dr,nc=corner.c+dc;
+      const cell=this.board[nr][nc];
+      if(cell.revealed||cell.flagged)continue;
+      if(cell.mine){cell.flagged=true;flagged.push({r:nr,c:nc});}
+      else{const res=this.reveal(nr,nc);revealed.push(...res);}
+    }
+    // Seed 1 new mine into unrevealed area
+    const seedable=[];
+    for(let r=0;r<this.rows;r++)for(let c=0;c<this.cols;c++){
+      const cell=this.board[r][c];
+      if(!cell.revealed&&!cell.flagged&&!cell.mine)seedable.push({r,c});
+    }
+    let seeded=0;
+    if(seedable.length){
+      const s=seedable[Math.floor(Math.random()*seedable.length)];
+      this.board[s.r][s.c].mine=true;this.mineCount++;seeded=1;
+      for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){
+        const nr=s.r+dr,nc=s.c+dc;
+        if(nr>=0&&nr<this.rows&&nc>=0&&nc<this.cols&&!this.board[nr][nc].mine)
+          this.board[nr][nc].adjacent=this.countAdj(nr,nc);
+      }
+    }
+    return{revealed,flagged,seeded};
+  }
+  usePyre(){
+    const idx=this.powerups.indexOf('pyre');if(idx===-1)return{status:'none'};
+    const flagged=[];
+    for(let r=0;r<this.rows;r++)for(let c=0;c<this.cols;c++)
+      if(this.board[r][c].flagged)flagged.push({r,c});
+    if(!flagged.length)return{status:'none'};
+    this.powerups.splice(idx,1);
+    const badFlag=flagged.find(({r,c})=>!this.board[r][c].mine);
+    if(badFlag){this.gameOver=true;this.gameWon=false;return{status:'badFlag',r:badFlag.r,c:badFlag.c};}
+    const revealed=[];
+    flagged.forEach(({r,c})=>{
+      for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){
+        if(!dr&&!dc)continue;
+        const nr=r+dr,nc=c+dc;
+        if(nr>=0&&nr<this.rows&&nc>=0&&nc<this.cols&&!this.board[nr][nc].mine&&!this.board[nr][nc].revealed){
+          const res=this.reveal(nr,nc);revealed.push(...res);
+        }
+      }
+    });
+    return{status:'ok',revealed};
+  }
   get flagCount(){let n=0;for(let r=0;r<this.rows;r++)for(let c=0;c<this.cols;c++)if(this.board[r][c].flagged)n++;return n;}
+}
+
+// ============================================================
+// CLASSES
+// ============================================================
+const CLASSES=[
+  {id:'sweeper',name:'The Sweeper',desc:'Baseline. Clean minesweeper.',icon:'&#x16A0;',unlockReq:null},
+  {id:'wraith',name:'The Wraith',desc:'Combos bank time. -15s per depth.',icon:'&#x16B7;',unlockReq:'hit an 8-combo'},
+];
+function classById(id){return CLASSES.find(c=>c.id===id)||CLASSES[0];}
+function isClassUnlocked(id){
+  return true; // DEV: all classes unlocked for testing
 }
 
 // ============================================================
@@ -1146,14 +1325,26 @@ class GameUI{
     const hardActive=this.game.hardMode&&hardUnlocked;
     const toggleClass=!hardUnlocked?'locked':(hardActive?'active':'');
     const sub=!hardUnlocked?'Clear Depth 4 to unlock':(hardActive?'Depths 1-5 &middot; Modifiers Active':'Four depths &middot; Clean');
+
+    const classesHTML=CLASSES.map(c=>{
+      const unlocked=isClassUnlocked(c.id);
+      const active=this.game.gameClass===c.id&&unlocked;
+      const cls=!unlocked?'locked':(active?'active':'');
+      const footer=unlocked?`<div class="ct-desc">${c.desc}</div>`:`<div class="ct-unlock">Unlock: ${c.unlockReq}</div>`;
+      return`<div class="class-tile ${cls}" data-class="${c.id}"><span class="ct-icon">${c.icon}</span><div class="ct-name">${c.name}</div>${footer}</div>`;
+    }).join('');
+
     this.root.innerHTML=`
       <div class="start-screen">
         <div class="flavor">Layers of the grid await.<br>Each deeper than the last.<br>Clear them all... or begin again.</div>
+        <div class="class-picker-label">Choose Your Path</div>
+        <div class="class-picker">${classesHTML}</div>
         <div class="hard-mode-toggle ${toggleClass}" id="hard-toggle">
           <div class="checkbox"></div>
           <div><span class="hm-label">Hard Mode</span><span class="hm-sub">${sub}</span></div>
         </div>
         <button class="btn btn-primary" id="start-btn">Begin</button>
+        <div><button class="codex-link" id="codex-btn">Codex &#x2192;</button></div>
       </div>`;
     if(hardUnlocked){
       document.getElementById('hard-toggle').addEventListener('click',()=>{
@@ -1161,7 +1352,114 @@ class GameUI{
         this.showStart();
       });
     }
+    document.querySelectorAll('.class-tile').forEach(el=>{
+      el.addEventListener('click',()=>{
+        const id=el.dataset.class;
+        if(!isClassUnlocked(id))return;
+        this.game.gameClass=id;
+        this.showStart();
+      });
+    });
     document.getElementById('start-btn').addEventListener('click',()=>{sfx.init();this.game.reset();const line=NARRATOR.react('startRun');if(line)this.setFlavor(line);this.startLevel();});
+    document.getElementById('codex-btn').addEventListener('click',()=>this.showCodex());
+  }
+
+  showCodex(){
+    this.setFlavor('Know the grid before it knows you.');
+    const relics=[
+      {glyph:ICONS.time_glyph,name:'Hourglass',price:15,desc:'Reclaims 20 seconds of time.'},
+      {glyph:ICONS.shield_glyph,name:'The Aegis',price:23,desc:'Absorbs your next mine hit. One charge.'},
+      {glyph:ICONS.compass_glyph,name:'Compass',price:18,desc:'Auto-stakes 3 buried mines.'},
+      {glyph:ICONS.oracle_glyph,name:'Oracle',price:21,desc:'Reveals a 2x2 region. Flags any mines inside.'},
+      {glyph:ICONS.scan_glyph,name:'The Eye',price:20,desc:'Reveals 3 safe tiles.'},
+      {glyph:ICONS.lantern_glyph,name:'The Lantern',price:24,desc:'Picks a correctly-flagged mine. Reveals every empty tile touching it.'},
+    ];
+    const cursed=[
+      {glyph:ICONS.hex_glyph,name:'The Hex',price:20,boon:'Reveals 5 safe tiles.',curse:'Your next mine hit ignores the Aegis.'},
+      {glyph:ICONS.bargain_glyph,name:'Bargain',price:15,boon:'+40 seconds of time.',curse:'Shard gains halved for 60 seconds. Persists through the shop.'},
+      {glyph:ICONS.scapegoat_glyph,name:'Scapegoat',price:23,boon:'Absorbs up to 2 mine hits.',curse:'Timer runs 2x faster per hit absorbed.'},
+      {glyph:ICONS.pyre_glyph,name:'The Pyre',price:24,boon:'Reveals every empty tile adjacent to all your flags.',curse:'If any flag is wrong, you die.'},
+      {glyph:ICONS.rift_glyph,name:'The Rift',price:21,boon:'Reveals a 3x3 region. Flags mines inside.',curse:'-20 seconds. Seeds 1 new mine into the board.'},
+      {glyph:ICONS.tithe_glyph,name:'Tithe',price:18,boon:'Flags 5 buried mines correctly.',curse:'Removes every flag you already placed.'},
+    ];
+    const classCards=CLASSES.map(c=>`<div class="cdx-relic"><div class="cr-head"><span class="cr-g">${c.icon}</span><span class="cr-n">${c.name}</span></div><div class="cr-d">${c.desc}</div></div>`).join('');
+    const modCards=MODIFIERS.map(m=>`<div class="cdx-relic cursed"><div class="cr-head"><span class="cr-g">${m.icon}</span><span class="cr-n">${m.name}</span></div><div class="cr-d">${m.desc}</div></div>`).join('');
+
+    this.root.innerHTML=`
+      <div class="codex-screen">
+        <div class="codex-header">
+          <h2>Codex</h2>
+          <div class="codex-flavor">Five depths &middot; Twelve relics &middot; One grid</div>
+        </div>
+
+        <div class="cdx-section">
+          <div class="cdx-h">Objective</div>
+          <div class="cdx-body">Descend through four depths (five on Hard Mode). Clear every safe tile before the timer hits zero. Hit a mine or run out of time and you start again at Depth 1. Half your remaining time carries into the next depth.</div>
+        </div>
+
+        <div class="cdx-section">
+          <div class="cdx-h">Controls</div>
+          <div class="cdx-kv">
+            <span>Left-click</span><span>Reveal a tile</span>
+            <span>Right-click</span><span>Place a flag (stake)</span>
+            <span>Long-press</span><span>Flag on mobile</span>
+            <span>Click number</span><span>Chord: reveal unflagged neighbors when flag count matches</span>
+            <span>Click badge</span><span>Activate a relic</span>
+          </div>
+        </div>
+
+        <div class="cdx-section">
+          <div class="cdx-h">Depths</div>
+          <table class="cdx-table">
+            <tr><th>#</th><th>Grid</th><th>Mines</th><th>Time</th></tr>
+            <tr><td>1</td><td>8x8</td><td>10</td><td>2:30</td></tr>
+            <tr><td>2</td><td>10x10</td><td>15</td><td>2:20</td></tr>
+            <tr><td>3</td><td>12x12</td><td>25</td><td>2:10</td></tr>
+            <tr><td>4</td><td>14x14</td><td>35</td><td>2:00</td></tr>
+            <tr><td>5</td><td>16x16</td><td>50</td><td>1:50</td></tr>
+          </table>
+        </div>
+
+        <div class="cdx-section">
+          <div class="cdx-h">Shards</div>
+          <ul class="cdx-list">
+            <li>+1 per tile revealed</li>
+            <li>Chain reveals inside 800ms earn combo shards: +1 scaling starting at the 3rd reveal, caps at +5</li>
+            <li>Depth clear bonus: 10 shards per depth</li>
+            <li>Time bonus: +1 per 5 seconds remaining</li>
+          </ul>
+        </div>
+
+        <div class="cdx-section">
+          <div class="cdx-h">Relics</div>
+          <div class="cdx-sub">Bought between depths. Persist across the run. Click the badge to activate.</div>
+          <div class="cdx-grid">
+            ${relics.map(r=>`<div class="cdx-relic"><div class="cr-head"><span class="cr-g">${r.glyph}</span><span class="cr-n">${r.name}</span><span class="cr-p">${r.price}&#9830;</span></div><div class="cr-d">${r.desc}</div></div>`).join('')}
+          </div>
+        </div>
+
+        <div class="cdx-section">
+          <div class="cdx-h danger">Cursed Relics</div>
+          <div class="cdx-sub">~30% chance to appear in the shop. Stronger boons. Each one carries a hook.</div>
+          <div class="cdx-grid">
+            ${cursed.map(r=>`<div class="cdx-relic cursed"><div class="cr-head"><span class="cr-g">${r.glyph}</span><span class="cr-n">${r.name}</span><span class="cr-p">${r.price}&#9830;</span></div><div class="cr-boon">+ ${r.boon}</div><div class="cr-curse">&minus; ${r.curse}</div></div>`).join('')}
+          </div>
+        </div>
+
+        <div class="cdx-section">
+          <div class="cdx-h">Classes</div>
+          <div class="cdx-grid">${classCards}</div>
+        </div>
+
+        <div class="cdx-section">
+          <div class="cdx-h danger">Hard Mode</div>
+          <div class="cdx-body">Unlocks after clearing Depth 4. Adds a fifth depth and layers modifiers onto every depth. Depths 1-3 carry one modifier. Depths 4-5 carry two.</div>
+          <div class="cdx-grid" style="margin-top:10px;">${modCards}</div>
+        </div>
+
+        <button class="btn btn-primary codex-back-btn" id="codex-back">Back</button>
+      </div>`;
+    document.getElementById('codex-back').addEventListener('click',()=>this.showStart());
   }
 
   startLevel(){
@@ -1179,7 +1477,7 @@ class GameUI{
 
     let powerupsHTML='';
     if(g.powerups.length>0){
-      const PMAP={scan:{cls:'scan',glyph:ICONS.scan_glyph,label:'Scan'},timewarp:{cls:'timewarp',glyph:ICONS.time_glyph,label:'Warp'},shield:{cls:'shield',glyph:ICONS.shield_glyph,label:'Ward'},compass:{cls:'compass',glyph:ICONS.compass_glyph,label:'Compass'},oracle:{cls:'oracle',glyph:ICONS.oracle_glyph,label:'Oracle'},rewind:{cls:'rewind',glyph:ICONS.rewind_glyph,label:'Rewind'},hound:{cls:'hound',glyph:ICONS.hound_glyph,label:'Hound'},leech:{cls:'cursed',glyph:ICONS.leech_glyph,label:'Leech'},tithe:{cls:'cursed',glyph:ICONS.tithe_glyph,label:'Tithe'},bargain:{cls:'cursed',glyph:ICONS.bargain_glyph,label:'Bargain'}};
+      const PMAP={scan:{cls:'scan',glyph:ICONS.scan_glyph,label:'Eye'},timewarp:{cls:'timewarp',glyph:ICONS.time_glyph,label:'Warp'},shield:{cls:'shield',glyph:ICONS.shield_glyph,label:'Aegis'},compass:{cls:'compass',glyph:ICONS.compass_glyph,label:'Compass'},oracle:{cls:'oracle',glyph:ICONS.oracle_glyph,label:'Oracle'},rewind:{cls:'rewind',glyph:ICONS.rewind_glyph,label:'Rewind'},lantern:{cls:'lantern',glyph:ICONS.lantern_glyph,label:'Lantern'},hex:{cls:'cursed',glyph:ICONS.hex_glyph,label:'Hex'},tithe:{cls:'cursed',glyph:ICONS.tithe_glyph,label:'Tithe'},bargain:{cls:'cursed',glyph:ICONS.bargain_glyph,label:'Bargain'},scapegoat:{cls:'cursed',glyph:ICONS.scapegoat_glyph,label:'Scapegoat'},pyre:{cls:'cursed',glyph:ICONS.pyre_glyph,label:'Pyre'},rift:{cls:'cursed',glyph:ICONS.rift_glyph,label:'Rift'}};
       powerupsHTML=g.powerups.map((p,i)=>{
         const m=PMAP[p]||PMAP.scan;
         return`<span class="powerup-badge ${m.cls}" data-powerup="${p}" data-idx="${i}"><span class="glyph">${m.glyph}</span>${m.label}</span>`;
@@ -1195,9 +1493,12 @@ class GameUI{
     }).join('');
 
     let modBarHTML='';
-    if(g.modifiers.length>0){
-      modBarHTML=`<div class="modifier-bar">${g.modifiers.map(m=>`<span class="modifier-badge" title="${m.desc}"><span class="mg">${m.icon}</span>${m.name}</span>`).join('')}</div>`;
-    }
+    const cls=classById(g.gameClass);
+    const showClassBadge=g.gameClass!=='sweeper';
+    const badges=[];
+    if(showClassBadge)badges.push(`<span class="class-badge" title="${cls.desc}"><span class="cb-icon">${cls.icon}</span>${cls.name}</span>`);
+    if(g.modifiers.length>0)badges.push(...g.modifiers.map(m=>`<span class="modifier-badge" title="${m.desc}"><span class="mg">${m.icon}</span>${m.name}</span>`));
+    if(badges.length>0)modBarHTML=`<div class="modifier-bar">${badges.join('')}</div>`;
 
     this.root.innerHTML=`
       <div class="status-bar">
@@ -1293,17 +1594,27 @@ class GameUI{
     if(this.game.consumeSurge())this.triggerSurge();
 
     if(results[0]?.shieldBlocked){
-      sfx.shieldBlock();this.showToast('Ward absorbed','var(--num-2)');this.setFlavor(NARRATOR.react('shieldBlock')||'');this.renderBoard();return;
+      sfx.shieldBlock();this.showToast('Aegis absorbed','var(--num-2)');this.setFlavor(NARRATOR.react('shieldBlock')||'');this.renderBoard();return;
+    }
+    if(results[0]?.scapegoatBlocked){
+      sfx.shieldBlock();this.showToast('Scapegoat bleeds / time '+this.game.timeMultiplier+'x','var(--danger)');this.renderBoard();return;
     }
     if(results[0]?.mine){this.onMineHit(t.r,t.c);return;}
 
     sfx.reveal();
     const now=Date.now();
-    if(now-this.lastRevealTime<800){
+    const comboWindow=this.game.gameClass==='wraith'?1600:800;
+    if(now-this.lastRevealTime<comboWindow){
       this.comboCount++;
-      if(this.comboCount>=2){this.game.shards+=this.comboCount;}
-      if(this.comboCount>=3){this.showCombo(e.clientX,e.clientY,this.comboCount);}
+      if(this.comboCount>=3){this.game.awardShards(Math.min(this.comboCount-2,5));this.showCombo(e.clientX,e.clientY,this.comboCount);}
+      if(this.game.gameClass==='wraith'&&this.comboCount>=4){
+        this.game.timeRemaining=Math.min(this.game.timeRemaining+1,this.game.maxTime+30);
+        if(this.comboCount===4||this.comboCount%3===1)this.showToast('+1s banked','var(--accent)');
+      }
       if(this.comboCount===4||this.comboCount===7){const line=NARRATOR.react('combo',{count:this.comboCount});if(line)this.setFlavor(line);}
+      // Track max combo for class unlocks
+      const prevMax=parseInt(localStorage.getItem('sweeper_maxCombo')||'0',10);
+      if(this.comboCount>prevMax)localStorage.setItem('sweeper_maxCombo',String(this.comboCount));
     }else{this.comboCount=1;}
     this.lastRevealTime=now;
 
@@ -1392,20 +1703,21 @@ class GameUI{
     }
 
     const shop=[
-      {id:'timewarp',glyph:ICONS.time_glyph,name:'Hourglass',price:10},
-      {id:'shield',glyph:ICONS.shield_glyph,name:'The Ward',price:15},
-      {id:'compass',glyph:ICONS.compass_glyph,name:'Compass',price:12},
-      {id:'oracle',glyph:ICONS.oracle_glyph,name:'Oracle',price:14},
-      {id:'rewind',glyph:ICONS.rewind_glyph,name:'Rewind',price:18},
-      {id:'hound',glyph:ICONS.hound_glyph,name:'Hound',price:16},
+      {id:'timewarp',glyph:ICONS.time_glyph,name:'Hourglass',price:15},
+      {id:'shield',glyph:ICONS.shield_glyph,name:'The Aegis',price:23},
+      {id:'compass',glyph:ICONS.compass_glyph,name:'Compass',price:18},
+      {id:'oracle',glyph:ICONS.oracle_glyph,name:'Oracle',price:21},
+      {id:'scan',glyph:ICONS.scan_glyph,name:'The Eye',price:20},
+      {id:'lantern',glyph:ICONS.lantern_glyph,name:'The Lantern',price:24},
     ];
     const cursedShop=[
-      {id:'leech',glyph:ICONS.leech_glyph,name:'Leech',price:3,cursed:true},
-      {id:'bargain',glyph:ICONS.bargain_glyph,name:'Bargain',price:2,cursed:true},
+      {id:'hex',glyph:ICONS.hex_glyph,name:'The Hex',price:20,cursed:true},
+      {id:'bargain',glyph:ICONS.bargain_glyph,name:'Bargain',price:15,cursed:true},
+      {id:'scapegoat',glyph:ICONS.scapegoat_glyph,name:'Scapegoat',price:23,cursed:true},
+      {id:'pyre',glyph:ICONS.pyre_glyph,name:'The Pyre',price:24,cursed:true},
+      {id:'rift',glyph:ICONS.rift_glyph,name:'The Rift',price:21,cursed:true},
     ];
-    if(g.powerups.includes('shield')){
-      cursedShop.push({id:'tithe',glyph:ICONS.tithe_glyph,name:'Tithe',price:4,cursed:true});
-    }
+    cursedShop.push({id:'tithe',glyph:ICONS.tithe_glyph,name:'Tithe',price:18,cursed:true});
     const items=[...shop];
     if(Math.random()<0.3){
       const cursed=cursedShop[Math.floor(Math.random()*cursedShop.length)];
@@ -1465,6 +1777,7 @@ class GameUI{
           g.shards-=price;
           const pickId=el.dataset.pick;
           g.powerups.push(pickId);
+          if(pickId==='scapegoat')g.scapegoatCharges+=2;
           el.classList.add('bought');
           sfx.powerup();
           if(el.closest('.shop-item')?.classList.contains('cursed')){const line=NARRATOR.react('boughtCursed');if(line)this.setFlavor(line);}
@@ -1502,7 +1815,7 @@ class GameUI{
     sfx.init();if(this.game.gameOver)return;
     if(type==='scan'){
       const results=this.game.useScan();
-      if(results){sfx.powerup();this.renderBoard();
+      if(results){sfx.powerup();this.showToast('3 SAFE REVEALED','var(--num-1)');this.renderBoard();
         results.forEach(({r,c})=>{const idx=r*this.game.cols+c;const el=document.getElementById('grid')?.children[idx];if(el)el.classList.add('just-revealed');});
         if(this.game.gameWon){this.stopTimer();sfx.levelComplete();setTimeout(()=>this.showLevelComplete(),400);}
       }
@@ -1512,34 +1825,47 @@ class GameUI{
       const flagged=this.game.useCompass();
       if(flagged){sfx.powerup();this.showToast(flagged+' staked','var(--num-4)');this.renderBoard();}
     }else if(type==='oracle'){
-      const results=this.game.useOracle();
-      if(results){sfx.powerup();this.renderBoard();
+      const result=this.game.useOracle();
+      if(result){sfx.powerup();this.showToast(result.revealed.length+' safe / '+result.flagged.length+' staked','var(--num-6)');this.renderBoard();
+        result.revealed.forEach(({r,c})=>{const idx=r*this.game.cols+c;const el=document.getElementById('grid')?.children[idx];if(el)el.classList.add('just-revealed');});
+        if(this.game.gameWon){this.stopTimer();sfx.levelComplete();setTimeout(()=>this.showLevelComplete(),400);}
+      }
+    }else if(type==='lantern'){
+      const result=this.game.useLantern();
+      if(result.status==='ok'&&result.revealed?.length){
+        sfx.powerup();this.showToast('LANTERN LIT','#C8A878');this.renderBoard();
+        result.revealed.forEach(({r,c})=>{const idx=r*this.game.cols+c;const el=document.getElementById('grid')?.children[idx];if(el)el.classList.add('just-revealed');});
+        if(this.game.gameWon){this.stopTimer();sfx.levelComplete();setTimeout(()=>this.showLevelComplete(),400);}
+      }else{this.showToast('NO GOOD STAKES','var(--text-dim)');}
+    }else if(type==='hex'){
+      const results=this.game.useHex();
+      if(results){sfx.powerup();this.showToast('5 TILES / AEGIS HEXED','var(--danger)');this.renderBoard();
         results.forEach(({r,c})=>{const idx=r*this.game.cols+c;const el=document.getElementById('grid')?.children[idx];if(el)el.classList.add('just-revealed');});
         if(this.game.gameWon){this.stopTimer();sfx.levelComplete();setTimeout(()=>this.showLevelComplete(),400);}
       }
-    }else if(type==='rewind'){
-      if(this.game.useRewind()){sfx.powerup();this.showToast('REWOUND','#B48CFF');this.startLevel();}
-    }else if(type==='hound'){
-      const result=this.game.useHound();
+    }else if(type==='tithe'){
+      const result=this.game.useTithe();
+      if(result){sfx.powerup();this.showToast(result.added+' STAKED / '+result.removed+' WIPED','var(--danger)');this.renderBoard();}
+    }else if(type==='bargain'){
+      if(this.game.useBargain()){sfx.powerup();this.showToast('+40s / -50% SHARDS 60s','var(--danger)');this.renderBoard();}
+    }else if(type==='pyre'){
+      const result=this.game.usePyre();
       if(result.status==='badFlag'){
-        sfx.explosion();this.showToast('BAD STAKE','var(--danger)');this.onMineHit(result.r,result.c);
+        sfx.explosion();this.showToast('PYRE CONSUMES','var(--danger)');this.onMineHit(result.r,result.c);
       }else if(result.status==='ok'&&result.revealed?.length){
-        sfx.powerup();this.showToast('HOUND SNIFFS','#C8A878');this.renderBoard();
+        sfx.powerup();this.showToast('PYRE BURNS','var(--danger)');this.renderBoard();
         result.revealed.forEach(({r,c})=>{const idx=r*this.game.cols+c;const el=document.getElementById('grid')?.children[idx];if(el)el.classList.add('just-revealed');});
         if(this.game.gameWon){this.stopTimer();sfx.levelComplete();setTimeout(()=>this.showLevelComplete(),400);}
-      }else{this.showToast('NO STAKES TO SNIFF','var(--text-dim)');}
-    }else if(type==='leech'){
-      const results=this.game.useLeech();
-      if(results){sfx.powerup();this.showToast('5 TILES / -25s','var(--danger)');this.renderBoard();
-        results.forEach(({r,c})=>{const idx=r*this.game.cols+c;const el=document.getElementById('grid')?.children[idx];if(el)el.classList.add('just-revealed');});
+      }else{this.showToast('NO STAKES','var(--text-dim)');}
+    }else if(type==='scapegoat'){
+      this.showToast('Passive — '+this.game.scapegoatCharges+' charge'+(this.game.scapegoatCharges===1?'':'s'),'var(--danger)');
+    }else if(type==='rift'){
+      const result=this.game.useRift();
+      if(result){sfx.powerup();this.showToast(result.revealed.length+' safe / '+result.flagged.length+' staked / -20s / +1 MINE','var(--danger)');this.renderBoard();
+        result.revealed.forEach(({r,c})=>{const idx=r*this.game.cols+c;const el=document.getElementById('grid')?.children[idx];if(el)el.classList.add('just-revealed');});
         if(this.game.gameWon){this.stopTimer();sfx.levelComplete();setTimeout(()=>this.showLevelComplete(),400);}
         if(this.game.timeRemaining<=0){this.game.gameOver=true;this.game.gameWon=false;this.stopTimer();sfx.gameOver();setTimeout(()=>this.showGameOver(),600);}
       }
-    }else if(type==='tithe'){
-      const flagged=this.game.useTithe();
-      if(flagged){sfx.powerup();this.showToast(flagged+' STAKED / CURSED','var(--danger)');this.renderBoard();}
-    }else if(type==='bargain'){
-      if(this.game.useBargain()){sfx.powerup();this.showToast('+45s / -50% SCORE','var(--danger)');this.renderBoard();}
     }
     if(this.game.consumeSurge())this.triggerSurge();
   }
@@ -1580,8 +1906,8 @@ class GameUI{
     const s={level:this.game.level,shards:this.game.shards,timeRemaining:this.game.timeRemaining,maxTime:this.game.maxTime,
       rows:this.game.rows,cols:this.game.cols,mineCount:this.game.mineCount,revealedCount:this.game.revealedCount,
       firstClick:this.game.firstClick,powerups:[...this.game.powerups],
-      hardMode:this.game.hardMode,totalDepths:this.game.totalDepths,
-      modifiers:this.game.modifiers.map(m=>m.id),surged:this.game.surged,
+      hardMode:this.game.hardMode,totalDepths:this.game.totalDepths,gameClass:this.game.gameClass,
+      modifiers:this.game.modifiers.map(m=>m.id),surged:this.game.surged,bargainCurseTime:this.game.bargainCurseTime,scapegoatCharges:this.game.scapegoatCharges,timeMultiplier:this.game.timeMultiplier,
       board:this.game.board.map(row=>row.map(c=>({mine:c.mine,revealed:c.revealed,flagged:c.flagged,adjacent:c.adjacent})))};
     localStorage.setItem('sweeper_save',JSON.stringify(s));
     this.showToast('Sealed','var(--accent)');
@@ -1594,9 +1920,9 @@ class GameUI{
     g.level=s.level;g.shards=s.shards||0;g.timeRemaining=s.timeRemaining;g.maxTime=s.maxTime;
     g.rows=s.rows;g.cols=s.cols;g.mineCount=s.mineCount;g.revealedCount=s.revealedCount;
     g.firstClick=s.firstClick;g.powerups=s.powerups||[];g.gameOver=false;g.gameWon=false;g.board=s.board;
-    g.hardMode=!!s.hardMode;g.totalDepths=s.totalDepths||(g.hardMode?5:4);
+    g.hardMode=!!s.hardMode;g.totalDepths=s.totalDepths||(g.hardMode?5:4);g.gameClass=s.gameClass||'sweeper';
     g.modifiers=(s.modifiers||[]).map(id=>MODIFIERS.find(m=>m.id===id)).filter(Boolean);
-    g.surged=!!s.surged;
+    g.surged=!!s.surged;g.bargainCurseTime=s.bargainCurseTime||0;g._fracShards=0;g.scapegoatCharges=s.scapegoatCharges||0;g.timeMultiplier=s.timeMultiplier||1;
     this.renderBoard();this.startTimer();this.showToast('Unsealed','var(--accent)');
   }
 }
