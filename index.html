@@ -12,7 +12,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SWEEPER.EXE">
 <meta name="twitter:description" content="Recovered from an unregistered copy of SWEEPER.EXE. Trial expired. Session 00047. Tape is still running.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
+<link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=VT323&display=swap" rel="stylesheet">
@@ -671,6 +671,7 @@ body.exe-mode .exe-wrap .exe-desk-icon.exe-di2{top:108px;left:8px;}
 body.exe-mode .exe-wrap .exe-desk-icon.exe-di3{top:24px;right:18px;}
 body.exe-mode .exe-wrap .exe-desk-icon.exe-di4{top:140px;right:10px;}
 body.exe-mode .exe-wrap .exe-desk-icon.exe-di5{top:200px;left:22px;}
+body.exe-mode .exe-wrap .exe-desk-icon.exe-di6{top:250px;right:14px;}
 @media (max-width:640px){
   body.exe-mode .exe-wrap .exe-desk-icon:not(#exe-desk-sweeper){display:none;}
   body.exe-mode.exe-closed .exe-wrap #exe-desk-sweeper{top:50%;left:50%;right:auto;transform:translate(-50%,-50%);}
@@ -697,12 +698,15 @@ body.exe-mode.exe-closed .exe-wrap{min-height:600px;padding-bottom:46px;}
 body.exe-mode .exe-titlebar-help{background:linear-gradient(90deg,#2A1A6A 0%,#5030A0 100%)!important;}
 /* Boot sequence overlay — fake BIOS POST + Win98 splash, lives INSIDE the CRT screen */
 body.exe-mode .exe-wrap .exe-boot{
-  position:absolute;inset:0;z-index:50;background:#000;
+  position:absolute;inset:0;z-index:100;background:#000;
   font-family:'Consolas','Courier New',monospace;color:#C8C8C8;
   font-size:12px;line-height:1.55;padding:14px 16px;
   overflow:hidden;
 }
-body.exe-mode .exe-wrap .exe-boot.gone{opacity:0;transition:opacity 0.35s ease-out;pointer-events:none;}
+body.exe-mode .exe-wrap.booting .exe-taskbar{display:none;}
+body.exe-mode .exe-wrap.booting .exe-desk-icon{display:none;}
+body.exe-mode .exe-wrap.booting .vhs-timestamp{display:none;}
+body.exe-mode .exe-wrap .exe-boot.gone{opacity:0;transition:opacity 0.6s ease-out;pointer-events:none;}
 .exe-boot-line{white-space:pre;opacity:0;animation:exe-boot-in 0.02s linear forwards;}
 @keyframes exe-boot-in{to{opacity:1;}}
 .exe-boot-ok{color:#5DD35D;}
@@ -716,8 +720,9 @@ body.exe-mode .exe-wrap .exe-boot.gone{opacity:0;transition:opacity 0.35s ease-o
 .exe-boot-splash.show{display:flex;animation:exe-splash-in 0.2s ease-out;}
 @keyframes exe-splash-in{from{opacity:0;}to{opacity:1;}}
 .exe-boot-splash-logo{
-  font-family:'Tahoma','Geneva',sans-serif;font-size:30px;font-weight:700;
-  letter-spacing:8px;color:#EFEFEF;text-shadow:2px 2px 0 #000,0 0 28px rgba(255,255,255,0.3);
+  font-family:'Tahoma','Geneva',sans-serif;font-size:clamp(18px,5vw,30px);font-weight:700;
+  letter-spacing:clamp(3px,1.5vw,8px);color:#EFEFEF;text-shadow:2px 2px 0 #000,0 0 28px rgba(255,255,255,0.3);
+  text-align:center;padding:0 10px;
 }
 .exe-boot-splash-sub{
   font-family:'Tahoma','Geneva',sans-serif;font-size:9px;font-weight:700;
@@ -731,7 +736,7 @@ body.exe-mode .exe-wrap .exe-boot.gone{opacity:0;transition:opacity 0.35s ease-o
   height:100%;background:linear-gradient(90deg,#08106A 0%,#1070B8 100%);
   width:0;
 }
-.exe-boot-splash.show .exe-boot-splash-bar-fill{animation:exe-boot-fill 1.1s ease-out forwards;}
+.exe-boot-splash.show .exe-boot-splash-bar-fill{animation:exe-boot-fill 1.6s ease-in-out forwards;}
 @keyframes exe-boot-fill{to{width:100%;}}
 /* App loader — Win98 "Opening..." dialog shown briefly when clicking desktop icons */
 body.exe-mode .exe-wrap .exe-app-loader{
@@ -739,7 +744,7 @@ body.exe-mode .exe-wrap .exe-app-loader{
   display:flex;align-items:center;justify-content:center;
   background:rgba(0,0,0,0.35);
 }
-.exe-app-loader.gone{opacity:0;transition:opacity 0.18s ease-out;pointer-events:none;}
+.exe-app-loader.gone{opacity:0;transition:opacity 0.3s ease-out;pointer-events:none;}
 .exe-app-loader-box{
   background:#BCBCBC;border:1px solid #000;min-width:240px;
   box-shadow:inset 1px 1px 0 #EFEFEF,inset -1px -1px 0 #404040,inset 2px 2px 0 #D4D4D4,inset -2px -2px 0 #6E6E6E,2px 2px 0 #000;
@@ -759,7 +764,7 @@ body.exe-mode .exe-wrap .exe-app-loader{
 }
 .exe-app-loader-bar-fill{
   height:100%;background:linear-gradient(90deg,#08106A 0%,#1070B8 100%);
-  width:0;animation:exe-boot-fill 0.7s linear forwards;
+  width:0;animation:exe-boot-fill 1.4s ease-in-out forwards;
 }
 .exe-wrap{
   --xf:#BCBCBC;--xfd:#9E9E9E;--xhl:#EFEFEF;--xhl2:#D4D4D4;
@@ -793,6 +798,13 @@ body.exe-mode .exe-wrap .exe-app-loader{
   display:flex;align-items:center;justify-content:center;padding-bottom:2px;
 }
 .exe-tbtn:active{box-shadow:inset 1px 1px 0 var(--xsh),inset -1px -1px 0 var(--xhl);}
+.exe-reload-overlay{
+  position:absolute;inset:0;z-index:10;background:var(--xf,#BCBCBC);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:'Tahoma',sans-serif;font-size:11px;color:#000;
+}
+.exe-reload-msg{font-weight:700;margin-bottom:4px;}
+.exe-censor{background:#000;color:#000;padding:0 3px;border-radius:1px;user-select:none;}
 .exe-tabs{
   background:var(--xf);padding:6px 6px 0;display:flex;gap:0;
   border-bottom:1px solid #000;position:relative;
@@ -1113,6 +1125,31 @@ body.exe-mode .combo{color:var(--xta,#0A1163)!important;text-shadow:1px 1px 0 va
   box-shadow:inset 1px 1px 0 var(--xhl,#EFEFEF),inset -1px -1px 0 var(--xsh,#404040);
   font-family:inherit;font-size:11px;font-weight:700;color:#000;cursor:pointer;
 }
+.exe-start-btn.open{box-shadow:inset 1px 1px 0 var(--xsh,#404040),inset -1px -1px 0 var(--xhl,#EFEFEF);padding:1px 7px 0 9px;}
+.exe-start-menu{
+  position:absolute;bottom:28px;left:2px;z-index:91;
+  width:170px;background:var(--xf,#BCBCBC);
+  border:2px solid var(--xhl,#EFEFEF);border-right-color:var(--xsh,#404040);border-bottom-color:var(--xsh,#404040);
+  box-shadow:2px 2px 0 #000;display:none;
+  font-family:'Tahoma','Geneva','MS Sans Serif',sans-serif;font-size:11px;
+}
+.exe-start-menu.open{display:block;}
+.exe-start-menu-banner{
+  position:absolute;left:0;top:0;bottom:0;width:22px;
+  background:linear-gradient(to top,#000080,#1084D0);
+  display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;
+}
+.exe-start-menu-banner span{
+  writing-mode:vertical-rl;transform:rotate(180deg);
+  color:#C8C8C8;font-size:14px;font-weight:700;letter-spacing:2px;
+}
+.exe-start-menu-items{margin-left:22px;padding:2px 0;}
+.start-item{
+  display:flex;align-items:center;gap:8px;padding:4px 8px;cursor:pointer;color:#000;
+}
+.start-item:hover{background:#000080;color:#FFF;}
+.start-item .si-icon{font-size:16px;width:20px;text-align:center;}
+.start-item-sep{height:1px;margin:2px 22px 2px 8px;border-top:1px solid var(--xsm,#6E6E6E);border-bottom:1px solid var(--xhl,#EFEFEF);}
 .exe-start-btn:active{box-shadow:inset 1px 1px 0 var(--xsh,#404040),inset -1px -1px 0 var(--xhl,#EFEFEF);padding:1px 7px 0 9px;}
 .exe-start-btn .exe-start-flag{
   width:14px;height:14px;display:flex;align-items:center;justify-content:center;
@@ -1148,12 +1185,33 @@ body.exe-mode .combo{color:var(--xta,#0A1163)!important;text-shadow:1px 1px 0 va
   background:#D4D4D4;font-weight:700;
 }
 .exe-sound-btn{
-  background:none;border:none;box-shadow:none;
-  font-family:'Tahoma',sans-serif;font-size:12px;color:#000;
-  cursor:pointer;user-select:none;padding:0;line-height:1;
+  background:var(--xf,#BCBCBC);border:1px solid transparent;box-shadow:none;
+  font-family:'Tahoma',sans-serif;font-size:14px;color:#000;
+  cursor:pointer;user-select:none;padding:2px 5px;line-height:1;
+  border-radius:2px;
 }
-.exe-sound-btn:hover{color:#0A1163;}
-.exe-sound-btn.muted{color:#808080;}
+.exe-sound-btn:hover{background:#D4D4D4;border:1px solid #808080;}
+.exe-sound-btn:active{box-shadow:inset 1px 1px 0 var(--xsh,#404040);padding:3px 4px 1px 6px;}
+.exe-sound-btn.muted{opacity:0.5;}
+
+/* ======== TERMINAL ======== */
+.term-body{
+  background:#000;border:1px solid #000;box-shadow:inset 1px 1px 0 #404040;
+  font-family:'Consolas','Courier New',monospace;font-size:12px;color:#C8C8C8;
+  min-height:200px;max-height:300px;overflow-y:auto;padding:6px 8px;line-height:1.5;
+}
+.term-body .term-line{white-space:pre-wrap;word-break:break-all;}
+.term-body .term-ok{color:#5DD35D;}
+.term-body .term-err{color:#D44848;}
+.term-body .term-warn{color:#D4A800;}
+.term-body .term-info{color:#6EA8D4;}
+.term-input-row{display:flex;align-items:center;background:#000;padding:2px 8px 4px;border:1px solid #000;border-top:none;box-shadow:inset 1px 0 0 #404040;}
+.term-input-row .term-prompt{color:#5DD35D;font-family:'Consolas','Courier New',monospace;font-size:12px;margin-right:4px;flex-shrink:0;}
+.term-input{
+  flex:1;background:none;border:none;outline:none;
+  font-family:'Consolas','Courier New',monospace;font-size:12px;color:#C8C8C8;
+  caret-color:#5DD35D;
+}
 
 /* ======== VHS DISTORTION OVERLAYS ======== */
 .vhs-timestamp{
@@ -1417,16 +1475,21 @@ class SoundEngine {
     });
   }
 
-  // Retro mouse click — short square wave pop
+  // Real mouse click sample
   click(){
+    if(!this._clickBuf){
+      if(!this.ctx||this._clickLoading)return;
+      this._clickLoading=true;
+      const b64='SUQzBAAAAAABAFRYWFgAAAASAAADbWFqb3JfYnJhbmQAZGFzaABUWFhYAAAAEQAAA21pbm9yX3ZlcnNpb24AMABUWFhYAAAAHAAAA2NvbXBhdGlibGVfYnJhbmRzAGlzbzZtcDQxAFRTU0UAAAAPAAADTGF2ZjYyLjEyLjEwMAAAAAAAAAAAAAAA//NwwAAAAAAAAAAAAEluZm8AAAAPAAAACAAAA/oAR0dHR0dHR0dHR0dHYmJiYmJiYmJiYmJifHx8fHx8fHx8fHx8fJaWlpaWlpaWlpaWlrGxsbGxsbGxsbGxsbHLy8vLy8vLy8vLy8vl5eXl5eXl5eXl5eXl////////////////AAAAAExhdmM2Mi4yOAAAAAAAAAAAAAAAACQC1AAAAAAAAAP6aGLXTAAAAAAAAAAAAAAAAAD/80DEABBytQwNQRABGyH///zG53////kb/9CNIRu+c+QhMjeRpCNU53nfzvOd6EJkaehCKEIynOehz9TnnO8gQAEKACFDnIACFABGZ4Bx8YEvzAf+Kgk/CeCWg2/wSMYgwH+OQzclP//zQsQZGlPahAGHaADzM3JdN//82HAaFjoGn//5mbuOweAJAJOJWAP////+HQHYAYBFHmSZeJQkhyJmi/////83RPmhsaF9MvkuXT5KE4gjB///////iZk4lA3HJRWA6/l8gUyLAxdHtf/zQMQLFRM25AGBEAAcjLrtOHFgH/gAgXnzgYsisCKGFZCAYGcRcjHWSUvo8jbtkFncQ4xmTdspShhRdUk//0s5LOcIzHJ90+auje/+YYDCmEf7Tqv6FZJAEoAgIDE0lAABzEvMI+HQ//NCxBETaeraWYU4AAaUCwAQOtGdkUHqzkdTDxAyGtsacEx4vHC4kujHnP3uqFSi/9uNiRUjR1O///OOUinUj//8rG4l//8RHlJBYVVzn8fs+nxhmUFIji8zEckoKHkbfS5Wnk1rEJSs//NAxB8REUqUAYZYAHwyKixjoR0IZVmlbK5Y50cfVdPqVIMntJUW2XD2Tocw7FH6cToqFtstVhtsSsLZbV3lH0yF6XKJqA0WIIwAU4g7kIQxxJUCXnW5EayNaYORW6NzvyhBJjFQnz//80LENRNqBxJdgxAC/Nf6v/z/+GMgYPUVJMp/8Pr7HqUe/p/8tfZvd8AXKFSwiAqnoBC4jvDWVOIRSOW99QcHEY0GDmVKSQACIvbtOvbWyXcxB5CvJ6FbalXoSCmalU2bTzNLCV0O7IX/80DEQyUCmrJXmHgAuje8Gvr/4TkLdyfEGk+q/X///t2s6XrLu0Lbb8Yxf//////ssa6GobBZYuvb2xutfrWP/91xmtf8//2vBZdVrI9xOxOUGr2Ati0+FRlvljwV2tazM1rNeaXPJf/zQsQKEzlGEAHMYAAQQIqiqJJ7Rdc5El5ae808lEECKoqiSe0XXORJeOTFb1v2v7WvTlrTlpmZtbstO9jS4BA1LBwRYi6jxFbgaGA1//xETEFNRTMuMTAwqqqqqqqqqqqqqqqqqqqqqg==';
+      const bin=atob(b64);const arr=new Uint8Array(bin.length);
+      for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);
+      this.ctx.decodeAudioData(arr.buffer).then(buf=>{this._clickBuf=buf;this._clickLoading=false;this.click();});
+      return;
+    }
     this.play((ctx,out)=>{
-      const o=ctx.createOscillator();const g=ctx.createGain();
-      o.type='square';
-      o.frequency.setValueAtTime(1200,ctx.currentTime);
-      o.frequency.setValueAtTime(800,ctx.currentTime+0.005);
-      g.gain.setValueAtTime(0.06,ctx.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.025);
-      o.connect(g).connect(out);o.start();o.stop(ctx.currentTime+0.03);
+      const src=ctx.createBufferSource();src.buffer=this._clickBuf;
+      const g=ctx.createGain();g.gain.value=0.5;
+      src.connect(g).connect(out);src.start();
     });
   }
 
@@ -1442,6 +1505,135 @@ class SoundEngine {
         o.connect(g).connect(out);
         o.start(ctx.currentTime+i*0.04);o.stop(ctx.currentTime+i*0.04+0.12);
       });
+    });
+  }
+
+  // POST beep — single tone on boot
+  bootBeep(){
+    this.play((ctx,out)=>{
+      const o=ctx.createOscillator();const g=ctx.createGain();
+      o.type='square';o.frequency.value=800;
+      g.gain.setValueAtTime(0.08,ctx.currentTime);
+      g.gain.setValueAtTime(0.08,ctx.currentTime+0.12);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.15);
+      o.connect(g).connect(out);o.start();o.stop(ctx.currentTime+0.15);
+    });
+  }
+
+  // Startup chime — warm ascending for splash screen
+  startupChime(){
+    this.play((ctx,out)=>{
+      [440,554,659].forEach((freq,i)=>{
+        const o=ctx.createOscillator();const g=ctx.createGain();
+        o.type='sine';
+        o.frequency.setValueAtTime(freq,ctx.currentTime+i*0.15);
+        g.gain.setValueAtTime(0.1,ctx.currentTime+i*0.15);
+        g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+i*0.15+0.6);
+        o.connect(g).connect(out);
+        o.start(ctx.currentTime+i*0.15);o.stop(ctx.currentTime+i*0.15+0.6);
+      });
+    });
+  }
+
+  // Window open — short ascending blip
+  winOpen(){
+    this.play((ctx,out)=>{
+      const o=ctx.createOscillator();const g=ctx.createGain();
+      o.type='square';
+      o.frequency.setValueAtTime(300,ctx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(600,ctx.currentTime+0.06);
+      g.gain.setValueAtTime(0.06,ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.08);
+      o.connect(g).connect(out);o.start();o.stop(ctx.currentTime+0.08);
+    });
+  }
+
+  // Window close — short descending blip
+  winClose(){
+    this.play((ctx,out)=>{
+      const o=ctx.createOscillator();const g=ctx.createGain();
+      o.type='square';
+      o.frequency.setValueAtTime(500,ctx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(200,ctx.currentTime+0.06);
+      g.gain.setValueAtTime(0.06,ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.08);
+      o.connect(g).connect(out);o.start();o.stop(ctx.currentTime+0.08);
+    });
+  }
+
+  // Error ding — classic Win98 exclamation
+  error(){
+    this.play((ctx,out)=>{
+      const o=ctx.createOscillator();const g=ctx.createGain();
+      o.type='sine';o.frequency.value=440;
+      g.gain.setValueAtTime(0.12,ctx.currentTime);
+      g.gain.setValueAtTime(0.12,ctx.currentTime+0.1);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.3);
+      o.connect(g).connect(out);o.start();o.stop(ctx.currentTime+0.3);
+      // Second tone
+      const o2=ctx.createOscillator();const g2=ctx.createGain();
+      o2.type='sine';o2.frequency.value=330;
+      g2.gain.setValueAtTime(0.1,ctx.currentTime+0.12);
+      g2.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.35);
+      o2.connect(g2).connect(out);o2.start(ctx.currentTime+0.12);o2.stop(ctx.currentTime+0.35);
+    });
+  }
+
+  // Start menu pop
+  menuOpen(){
+    this.play((ctx,out)=>{
+      const buf=ctx.createBuffer(1,ctx.sampleRate*0.03,ctx.sampleRate);
+      const d=buf.getChannelData(0);
+      for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,4);
+      const src=ctx.createBufferSource();src.buffer=buf;
+      const g=ctx.createGain();g.gain.value=0.1;
+      const f=ctx.createBiquadFilter();f.type='bandpass';f.frequency.value=2500;f.Q.value=2;
+      src.connect(f).connect(g).connect(out);src.start();
+    });
+  }
+
+  // Shop purchase — register ka-ching
+  purchase(){
+    this.play((ctx,out)=>{
+      [1200,1600].forEach((freq,i)=>{
+        const o=ctx.createOscillator();const g=ctx.createGain();
+        o.type='sine';
+        o.frequency.setValueAtTime(freq,ctx.currentTime+i*0.07);
+        g.gain.setValueAtTime(0.1,ctx.currentTime+i*0.07);
+        g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+i*0.07+0.15);
+        o.connect(g).connect(out);
+        o.start(ctx.currentTime+i*0.07);o.stop(ctx.currentTime+i*0.07+0.15);
+      });
+    });
+  }
+
+  // Shutdown hum — descending drone
+  shutdown(){
+    this.play((ctx,out)=>{
+      const o=ctx.createOscillator();const g=ctx.createGain();
+      o.type='sine';
+      o.frequency.setValueAtTime(300,ctx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(60,ctx.currentTime+0.8);
+      g.gain.setValueAtTime(0.1,ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.8);
+      o.connect(g).connect(out);o.start();o.stop(ctx.currentTime+0.8);
+    });
+  }
+
+  // Save to disk — floppy write sound
+  diskWrite(){
+    this.play((ctx,out)=>{
+      const len=ctx.sampleRate*0.3;
+      const buf=ctx.createBuffer(1,len,ctx.sampleRate);
+      const d=buf.getChannelData(0);
+      for(let i=0;i<len;i++){
+        const t=i/ctx.sampleRate;
+        d[i]=(Math.random()*2-1)*0.3*(Math.sin(t*80*Math.PI*2)>0?1:0.3)*Math.pow(1-i/len,0.5);
+      }
+      const src=ctx.createBufferSource();src.buffer=buf;
+      const f=ctx.createBiquadFilter();f.type='bandpass';f.frequency.value=1800;f.Q.value=3;
+      const g=ctx.createGain();g.gain.value=0.08;
+      src.connect(f).connect(g).connect(out);src.start();
     });
   }
 
@@ -1493,11 +1685,11 @@ const NARRATOR={
   slowClear:['Methodical.','Careful read/write pattern detected.','Low throughput. Stable.','Each byte verified.'],
   firstDeath:['First fault logged.','Expected.','All users trigger this exception.','Error handling initialized.'],
   repeatedDeath:['Fault count incrementing.','How many more?','The process is patient. Are you?','You keep reconnecting.'],
-  boughtWard:['FIREWALL.SYS installed.','Redundancy is not safety.','You trust the firewall more than yourself.'],
+  boughtWard:['FIREWALL installed.','Redundancy is not safety.','You trust the firewall more than yourself.'],
   boughtCursed:['Dependency installed.','Unsigned code loaded into memory.','Side effects not documented.','You accepted the EULA.'],
   combo:['Burst mode engaged.','Throughput increasing.','Pipeline saturated.','Buffer overflow imminent.'],
   bigCombo:['Unstoppable process.','Priority escalated to REALTIME.','All threads consumed.','System cannot interrupt.'],
-  shieldBlock:['FIREWALL.SYS absorbed the fault.','One charge depleted.','Exception caught.','FIREWALL remembers what you do not.'],
+  shieldBlock:['FIREWALL absorbed the fault.','One charge depleted.','Exception caught.','FIREWALL remembers what you do not.'],
   noShards:['Insufficient keys.','Balance: 0.','Nothing to allocate.'],
   richShop:['Key surplus detected.','Allocate wisely.','The system lets you choose your dependencies.'],
   depth5:['Final partition.','Few processes reach this depth.','Maximum recursion depth.','All resources required. It will not be enough.'],
@@ -1526,7 +1718,7 @@ const NARRATOR={
       case 'shieldBlock':return this._pick('shieldBlock');
       case 'combo':return ctx?.count>=6?this._pick('bigCombo'):this._pick('combo');
       case 'boughtCursed':{this._cursedBought++;return this._pick('boughtCursed');}
-      case 'boughtWard':{this._wardsBought++;return this._wardsBought>2?'FIREWALL.SYS installed again.':this._pick('boughtWard');}
+      case 'boughtWard':{this._wardsBought++;return this._wardsBought>2?'FIREWALL installed again.':this._pick('boughtWard');}
       case 'shopOpen':{
         const shards=ctx?.shards||0;
         if(shards<5)return this._pick('noShards');
@@ -1930,7 +2122,8 @@ const CLASSES=[
 ];
 function classById(id){return CLASSES.find(c=>c.id===id)||CLASSES[0];}
 function isClassUnlocked(id){
-  return true; // DEV: all classes unlocked for testing
+  if(id==='eden'||id==='manna')return localStorage.getItem('sweeper_hardUnlocked')==='1';
+  return true;
 }
 
 // ============================================================
@@ -1973,6 +2166,7 @@ class GameUI{
 
   _bindCheatCodes(){
     document.addEventListener('keydown',e=>{
+      if(localStorage.getItem('sweeper_cheatsUnlocked')!=='1')return;
       if(!e.ctrlKey&&!e.metaKey)return;
       const k=e.key.toLowerCase();
       if(k==='m'){e.preventDefault();
@@ -2007,28 +2201,40 @@ class GameUI{
     done();
     const wrap=this.root.querySelector('.exe-wrap');
     if(!wrap)return;
+    wrap.classList.add('booting');
+    sfx.init&&sfx.init();sfx.bootBeep();
     const boot=document.createElement('div');
     boot.className='exe-boot';
     boot.innerHTML=`
       <div id="exe-boot-text"></div>
       <div class="exe-boot-splash" id="exe-boot-splash">
         <div class="exe-boot-splash-logo">SWEEPER</div>
-        <div class="exe-boot-splash-sub">BLITZ INTERACTIVE &middot; 1997</div>
+        <div class="exe-boot-splash-sub">SMOKEY INTERACTIVE &middot; 1997</div>
         <div class="exe-boot-splash-bar"><div class="exe-boot-splash-bar-fill"></div></div>
       </div>`;
     wrap.appendChild(boot);
     const lines=[
       {t:'<span class="exe-boot-brand">BLITZ NECROTRON BIOS v2.04.1997</span>',d:0},
-      {t:'Copyright (C) 1994-1997 Blitz Interactive.',d:40},
-      {t:'',d:60},
-      {t:'CPU: NECROTRON-486DX @ 66MHz',d:80},
-      {t:'Memory Test: 65024K &nbsp;<span class="exe-boot-ok">[ OK ]</span>',d:120},
-      {t:'Detecting IDE drives... &nbsp;<span class="exe-boot-ok">[ OK ]</span>',d:100},
-      {t:'Detecting PS/2 Mouse... &nbsp;<span class="exe-boot-ok">[ OK ]</span>',d:80},
-      {t:'',d:40},
-      {t:'Loading SWEEPER.EXE from \\\\LEVEL\\SYS\\...',d:140},
-      {t:`Session <span class="exe-boot-brand">${String(parseInt(localStorage.getItem('sweeper_sessions')||'47',10)).padStart(5,'0')}</span> &nbsp;<span class="exe-boot-warn">[ TRIAL EXPIRED ]</span>`,d:120},
-      {t:'Continuing without license...',d:160},
+      {t:'Copyright (C) 1994-1997 Blitz Interactive.',d:60},
+      {t:'',d:100},
+      {t:'CPU: NECROTRON-486DX @ 66MHz',d:140},
+      {t:'Memory Test: 65024K &nbsp;',d:200},
+      {t:'  Checking extended... <span class="exe-boot-ok">[ OK ]</span>',d:180},
+      {t:'',d:80},
+      {t:'Detecting IDE drives...',d:250},
+      {t:'  Primary Master: BLITZ HDD 540MB &nbsp;<span class="exe-boot-ok">[ OK ]</span>',d:150},
+      {t:'  Primary Slave: None',d:80},
+      {t:'Detecting PS/2 Mouse... &nbsp;<span class="exe-boot-ok">[ OK ]</span>',d:180},
+      {t:'Detecting Sound Blaster...',d:200},
+      {t:'  Port 220h IRQ 5 DMA 1 &nbsp;<span class="exe-boot-ok">[ OK ]</span>',d:150},
+      {t:'',d:100},
+      {t:'Starting MS-DOS...',d:250},
+      {t:'HIMEM is testing extended memory... done.',d:200},
+      {t:'',d:80},
+      {t:'C:\\>SWEEPER.EXE',d:180},
+      {t:'Loading SWEEPER.EXE from \\\\LEVEL\\SYS\\...',d:220},
+      {t:`Session <span class="exe-boot-brand">${String(parseInt(localStorage.getItem('sweeper_sessions')||'47',10)).padStart(5,'0')}</span> &nbsp;<span class="exe-boot-warn">[ TRIAL EXPIRED ]</span>`,d:150},
+      {t:'Continuing without license...',d:200},
     ];
     const host=boot.querySelector('#exe-boot-text');
     let i=0;
@@ -2036,12 +2242,12 @@ class GameUI{
       if(i>=lines.length){
         setTimeout(()=>{
           const splash=boot.querySelector('#exe-boot-splash');
-          if(splash)splash.classList.add('show');
+          if(splash){splash.classList.add('show');sfx.startupChime();}
           setTimeout(()=>{
             boot.classList.add('gone');
-            setTimeout(()=>{boot.remove();},360);
-          },1100);
-        },220);
+            setTimeout(()=>{boot.remove();wrap.classList.remove('booting');},500);
+          },1800);
+        },300);
         return;
       }
       const ln=lines[i++];
@@ -2053,12 +2259,33 @@ class GameUI{
     step();
   }
 
+  _doRestart(){
+    const wrap=this.root.querySelector('.exe-wrap');
+    if(!wrap)return;
+    sfx.shutdown();
+    // Shutdown overlay
+    const shutdown=document.createElement('div');
+    shutdown.style.cssText='position:absolute;inset:0;z-index:200;background:#000;display:flex;align-items:center;justify-content:center;font-family:"Tahoma",sans-serif;font-size:14px;color:#C8C8C8;flex-direction:column;gap:12px;';
+    shutdown.innerHTML='<div style="color:#D4A800;">Windows is shutting down...</div><div style="font-size:11px;color:#808080;">Please wait while your system restarts.</div>';
+    wrap.appendChild(shutdown);
+    // Close all windows
+    wrap.querySelectorAll('.exe-win').forEach(w=>w.remove());
+    this._syncTaskbarApps();
+    setTimeout(()=>{
+      shutdown.innerHTML='<div style="color:#5DD35D;">It is now safe to restart your computer.</div>';
+      setTimeout(()=>{
+        shutdown.remove();
+        this._runBootSequence(()=>{});
+      },1800);
+    },2200);
+  }
+
   // Open any app — shows a Win98 loading dialog then calls the matching show method
   _openApp(view){
-    const APP_MAP={sweeper:'sweeper',lore:'lore',mycomp:'mycomp',recycle:'recycle'};
+    const APP_MAP={sweeper:'sweeper',lore:'lore',mycomp:'mycomp',recycle:'recycle',terminal:'terminal'};
     const winId=APP_MAP[view]||view;
-    const LABELS={sweeper:'SWEEPER.EXE',lore:'LORE.HLP',mycomp:'My Computer',recycle:'Recycle Bin'};
-    const SHOW={sweeper:()=>this.showStart(),lore:()=>this.showCodex(),mycomp:()=>this.showMyComputer(),recycle:()=>this.showRecycleBin()};
+    const LABELS={sweeper:'SWEEPER.EXE',lore:'LORE.HLP',mycomp:'My Computer',recycle:'Recycle Bin',terminal:'TERMINAL'};
+    const SHOW={sweeper:()=>this.showStart(),lore:()=>this.showCodex(),mycomp:()=>this.showMyComputer(),recycle:()=>this.showRecycleBin(),terminal:()=>this.showTerminal()};
     if(this.root.querySelector(`#exe-win-${winId}`)){this._raiseWin(winId);return;}
     const wrap=this.root.querySelector('.exe-wrap');
     if(!wrap||wrap.querySelector('.exe-app-loader')){
@@ -2066,6 +2293,8 @@ class GameUI{
       (SHOW[view]||SHOW.sweeper)();return;
     }
     const label=LABELS[view]||view;
+    const SPEEDS={sweeper:1500,mycomp:1500,lore:900,recycle:700,terminal:700};
+    const speed=SPEEDS[view]||1000;
     const loader=document.createElement('div');
     loader.className='exe-app-loader';
     loader.innerHTML=`
@@ -2073,17 +2302,18 @@ class GameUI{
         <div class="exe-app-loader-title">Opening...</div>
         <div class="exe-app-loader-body">
           <div class="exe-app-loader-text">Opening ${label}...</div>
-          <div class="exe-app-loader-bar"><div class="exe-app-loader-bar-fill"></div></div>
+          <div class="exe-app-loader-bar"><div class="exe-app-loader-bar-fill" style="animation-duration:${speed/1000}s;"></div></div>
         </div>
       </div>`;
     wrap.appendChild(loader);
     setTimeout(()=>{
       loader.classList.add('gone');
       setTimeout(()=>{
+        loader.remove();
         document.body.classList.remove('exe-closed');
         (SHOW[view]||SHOW.sweeper)();
-      },140);
-    },720);
+      },250);
+    },speed);
   }
 
   // Desktop icon definitions — stable set, positions persist in localStorage
@@ -2093,7 +2323,8 @@ class GameUI{
       {id:'exe-desk-lore',cls:'exe-di3',glyph:'?',label:'LORE.HLP'},
       {id:'exe-desk-mycomp',cls:'exe-di2',glyph:'PC',label:'My Computer'},
       {id:'exe-desk-recycle',cls:'exe-di4',glyph:'&#8960;',label:'Recycle'},
-      {id:'exe-desk-about',cls:'exe-di5',glyph:'@',label:'AUTHOR.TXT'},
+      {id:'exe-desk-terminal',cls:'exe-di5',glyph:'&gt;_',label:'COMMAND'},
+      {id:'exe-desk-about',cls:'exe-di6',glyph:'@',label:'AUTHOR.TXT'},
     ];
     return icons.map(i=>`<div class="exe-desk-icon ${i.cls}" id="${i.id}" data-icon="${i.id}"><div class="exe-ic-d">${i.glyph}</div>${i.label}</div>`).join('\n  ');
   }
@@ -2135,8 +2366,8 @@ class GameUI{
   _syncTaskbarApps(){
     const bar=document.getElementById('exe-taskbar-apps');
     if(!bar)return;
-    const LABELS={sweeper:'SWEEPER.EXE',lore:'LORE.HLP',mycomp:'My Computer',recycle:'Recycle Bin',sysalert:'System Alert'};
-    const ICONS={sweeper:'S',lore:'?',mycomp:'PC',recycle:'\u2718',sysalert:'!'};
+    const LABELS={sweeper:'SWEEPER.EXE',lore:'LORE.HLP',mycomp:'My Computer',recycle:'Recycle Bin',sysalert:'System Alert',terminal:'TERMINAL'};
+    const ICONS={sweeper:'S',lore:'?',mycomp:'PC',recycle:'\u2718',sysalert:'!',terminal:'>_'};
     const wins=this.root.querySelectorAll('.exe-win');
     const apps=[];
     wins.forEach(w=>{
@@ -2177,12 +2408,16 @@ class GameUI{
         <div class="vhs-timestamp" id="vhs-ts">JAN 15 1998  03:47:22 AM</div>
         ${this._desktopIconsHTML()}
         <div class="exe-taskbar">
-          <button class="exe-start-btn"><span class="exe-start-flag"></span>Start</button>
+          <div class="exe-start-menu" id="exe-start-menu">
+            <div class="exe-start-menu-items" style="margin-left:0;">
+              <div class="start-item" data-start-action="restart"><span class="si-icon">&#x21BB;</span>Restart</div>
+            </div>
+          </div>
+          <button class="exe-start-btn" id="exe-start-btn"><span class="exe-start-flag"></span>Start</button>
           <div class="exe-taskbar-divider"></div>
           <div class="exe-taskbar-apps" id="exe-taskbar-apps"></div>
           <div class="exe-taskbar-divider"></div>
           <div class="exe-taskbar-tray">
-            <span class="tray-icon warn" title="3 warnings">&#9888;</span>
             <button class="exe-sound-btn" id="exe-sound-btn" title="Toggle sound">&#9835;</button>
             <span class="exe-taskbar-clock" id="exe-clock">3:47 AM</span>
           </div>
@@ -2212,12 +2447,18 @@ class GameUI{
     this._raiseWin(winId);
     this._syncClosedState();
     this._syncTaskbarApps();
+    if(isNew)sfx.winOpen();
     return win;
   }
 
   // Bring a window to the front by assigning it the highest z-index
   _raiseWin(winId){
     this._zCounter=(this._zCounter||10)+1;
+    // Reset counter to prevent z-index from exceeding CRT overlay layers (z-100+)
+    if(this._zCounter>80){
+      this._zCounter=10;
+      this.root.querySelectorAll('.exe-win').forEach(w=>{w.style.zIndex=10;});
+    }
     const win=this.root.querySelector(`#exe-win-${winId}`);
     if(!win)return;
     win.style.zIndex=this._zCounter;
@@ -2229,7 +2470,7 @@ class GameUI{
   // Remove a window from the DOM
   _closeWin(winId){
     const win=this.root.querySelector(`#exe-win-${winId}`);
-    if(win)win.remove();
+    if(win){win.remove();sfx.winClose();}
     // If SWEEPER closed during game, stop the timer
     if(winId==='sweeper')this.stopTimer();
     this._syncClosedState();
@@ -2327,6 +2568,25 @@ class GameUI{
       if(!document.body.classList.contains('exe-mode'))return;
       const icon=e.target.closest('.exe-desk-icon');
       if(icon&&icon._wasDragged){e.preventDefault();e.stopPropagation();return;}
+      // Reload button → brief overlay then reopen instantly (no loader)
+      if(e.target.closest('.exe-reload-btn')){
+        e.preventDefault();e.stopPropagation();
+        const win=e.target.closest('.exe-win');
+        if(win&&win.dataset.winId&&!win.querySelector('.exe-reload-overlay')){
+          const winId=win.dataset.winId;
+          const ov=document.createElement('div');
+          ov.className='exe-reload-overlay';
+          ov.innerHTML='<div class="exe-reload-msg">Reloading...</div>';
+          win.appendChild(ov);
+          const SHOW={sweeper:()=>this.showStart(),lore:()=>this.showCodex(),mycomp:()=>this.showMyComputer(),recycle:()=>this.showRecycleBin(),terminal:()=>this.showTerminal()};
+          setTimeout(()=>{
+            this._closeWin(winId);
+            document.body.classList.remove('exe-closed');
+            (SHOW[winId]||SHOW.sweeper)();
+          },600);
+        }
+        return;
+      }
       // Close button → close only that specific window
       if(e.target.closest('.exe-close-btn')){
         e.preventDefault();e.stopPropagation();
@@ -2370,11 +2630,47 @@ class GameUI{
         else this._openApp('recycle');
         return;
       }
+      if(e.target.closest('#exe-desk-terminal')){
+        e.preventDefault();e.stopPropagation();
+        sfx.init&&sfx.init();
+        if(this.root.querySelector('#exe-win-terminal'))this._raiseWin('terminal');
+        else this._openApp('terminal');
+        return;
+      }
+      // Start button — sluggish like a real 486
+      if(e.target.closest('#exe-start-btn')){
+        e.preventDefault();e.stopPropagation();
+        const menu=this.root.querySelector('#exe-start-menu');
+        const btn=this.root.querySelector('#exe-start-btn');
+        if(menu.classList.contains('open')){
+          menu.classList.remove('open');btn.classList.remove('open');
+        }else{
+          btn.classList.add('open');sfx.menuOpen();
+          setTimeout(()=>menu.classList.add('open'),300);
+        }
+        return;
+      }
+      // Start menu items
+      const startItem=e.target.closest('[data-start-action]');
+      if(startItem){
+        e.preventDefault();e.stopPropagation();
+        this.root.querySelector('#exe-start-menu').classList.remove('open');
+        this.root.querySelector('#exe-start-btn').classList.remove('open');
+        const action=startItem.dataset.startAction;
+        if(action==='restart'||action==='shutdown')this._doRestart();
+        return;
+      }
+      // Close start menu on any other click
+      const startMenu=this.root.querySelector('#exe-start-menu');
+      if(startMenu&&startMenu.classList.contains('open')){
+        startMenu.classList.remove('open');
+        this.root.querySelector('#exe-start-btn').classList.remove('open');
+      }
       if(e.target.closest('#exe-desk-about')){
         e.preventDefault();e.stopPropagation();
         sfx.init&&sfx.init();
         document.body.classList.remove('exe-closed');
-        this.showNotepad('AUTHOR.TXT','SWEEPER.EXE v4.0.1\nby Thomas Ou\n\n─────────────────────────\n\nWeb:      thomasou.com\nGitHub:   github.com/Smokeybear10\nLinkedIn: linkedin.com/in/thomasou0\n\n─────────────────────────\n\nBuilt with HTML, CSS, and JS.\nNo frameworks. No dependencies.\nJust one file.');
+        this.showNotepad('AUTHOR.TXT','SWEEPER.EXE v4.0.1\nby Thomas Ou\n\n─────────────────────────\n\nWeb:      thomasou.com\nGitHub:   github.com/Smokeybear10\nLinkedIn: linkedin.com/in/thomasou0\n\n─────────────────────────\n\nLook in project files for help...\nSome answers are hidden in plain sight.');
         return;
       }
       // Taskbar app button — raise or reopen that window
@@ -2407,7 +2703,10 @@ class GameUI{
     const hardUnlocked=localStorage.getItem('sweeper_hardUnlocked')==='1';
     const hardActive=this.game.hardMode&&hardUnlocked;
 
-    const modulesHTML=CLASSES.map((c,i)=>{
+    const modulesHTML=CLASSES.filter(c=>{
+      if((c.id==='eden'||c.id==='manna')&&!isClassUnlocked(c.id))return false;
+      return true;
+    }).map((c,i)=>{
       const unlocked=isClassUnlocked(c.id);
       const selected=this.game.gameClass===c.id&&unlocked;
       const cls=!unlocked?'locked':(selected?'sel':'');
@@ -2417,29 +2716,29 @@ class GameUI{
     }).join('');
 
     const relicList=[
-      ['BACKUP.SYS','30','Reclaims 20 seconds'],
-      ['FIREWALL.SYS','46','Absorbs your next mine hit'],
-      ['SCANDISK.SYS','36','Auto-marks 3 hidden mines'],
-      ['DEFRAG.SYS','42','Reveals 2&times;2 region, marks mines'],
-      ['TRACERT.SYS','48','Reveals empty tiles touching a correct mark'],
+      ['BACKUP','30','Reclaims 20 seconds'],
+      ['FIREWALL','46','Absorbs your next mine hit'],
+      ['SCANDISK','36','Auto-marks 3 hidden mines'],
+      ['DEFRAG','42','Reveals 2&times;2 region, marks mines'],
+      ['TRACERT','48','Reveals empty tiles touching a correct mark'],
     ];
     const cursedList=[
-      ['SPYWARE.DLL','40','Reveals 5 safe as dead tiles (no info)','revealed tiles show no numbers'],
-      ['ADWARE.DLL','30','+30s time','key gain halved for 60s'],
-      ['BLOATWARE.DLL','46','Absorbs 2 mine hits','each hit halves time +5s'],
-      ['ROOTKIT.DLL','48','Reveals empty tiles around all flags','one wrong flag ends the game'],
-      ['TROJAN.DLL','36','Marks 5 hidden mines','removes all marks &minus;20s'],
+      ['SPYWARE','40','Reveals 5 safe as dead tiles (no info)','revealed tiles show no numbers'],
+      ['ADWARE','30','+30s time','key gain halved for 60s'],
+      ['BLOATWARE','46','Absorbs 2 mine hits','each hit halves time +5s'],
+      ['ROOTKIT','48','Reveals empty tiles around all flags','one wrong flag ends the game'],
+      ['TROJAN','36','Marks 5 hidden mines','removes all marks &minus;20s'],
     ];
 
     const topics={
       objective:{title:'Objective',body:`<p>Sweep four levels (five with ROOT.ACCESS). Reveal every safe tile before the clock runs out. Hit a mine or reach 00:00 and the process terminates. 30% of your remaining time carries forward.</p><div class="exe-ascii">LEVEL_01 &rarr; LEVEL_02 &rarr; LEVEL_03 &rarr; LEVEL_04 [ &rarr; LEVEL_05 ]</div><p class="exe-note">// if the clock reaches 00:00, the session ends.</p>`},
       controls:{title:'Controls',body:`<div class="exe-kvr"><span class="exe-k">left-click</span><span class="exe-v">Reveal tile</span></div><div class="exe-kvr"><span class="exe-k">right-click</span><span class="exe-v">Mark tile</span></div><div class="exe-kvr"><span class="exe-k">long-press</span><span class="exe-v">Mark on mobile</span></div><div class="exe-kvr"><span class="exe-k">click num</span><span class="exe-v">Chord: reveal neighbors when mark count matches</span></div><div class="exe-kvr"><span class="exe-k">click badge</span><span class="exe-v">Activate a protocol</span></div>`},
-      levels:{title:'Levels',body:`<table><tr><th>#</th><th>Grid</th><th>Mines</th><th>Time</th></tr><tr><td>01</td><td>8&times;8</td><td>10</td><td>2:30</td></tr><tr><td>02</td><td>10&times;10</td><td>15</td><td>2:20</td></tr><tr><td>03</td><td>12&times;12</td><td>25</td><td>2:10</td></tr><tr><td>04</td><td>14&times;14</td><td>35</td><td>2:00</td></tr><tr><td>05</td><td>16&times;16</td><td>50</td><td>1:50</td></tr></table><p class="exe-note">// level 05 requires root.access = true</p>`},
+      levels:{title:'Levels',body:`<table><tr><th>#</th><th>Grid</th><th>Mines</th><th>Time</th></tr><tr><td>01</td><td>8&times;8</td><td>10</td><td>2:30</td></tr><tr><td>02</td><td>10&times;10</td><td>15</td><td>2:20</td></tr><tr><td>03</td><td>12&times;12</td><td>25</td><td>2:10</td></tr><tr><td>04</td><td>14&times;14</td><td>35</td><td>2:00</td></tr>`+(localStorage.getItem('sweeper_hardUnlocked')==='1'?`<tr><td>05</td><td>16&times;16</td><td>50</td><td>1:50</td></tr></table>`:`<tr><td>05</td><td><span class="exe-censor">??&times;??</span></td><td><span class="exe-censor">??</span></td><td><span class="exe-censor">?:??</span></td></tr></table>`)},
       shards:{title:'Keys',body:`<p>Keys are recovered during a session. Spent on protocols and dependencies between sectors.</p><div class="exe-kvr"><span class="exe-k">per tile</span><span class="exe-v">+1 key</span></div><div class="exe-kvr"><span class="exe-k">combo</span><span class="exe-v">Chain reveals within 800ms: +1 starting at 3rd, caps at +5</span></div><div class="exe-kvr"><span class="exe-k">sector clear</span><span class="exe-v">+10 keys</span></div><div class="exe-kvr"><span class="exe-k">time bonus</span><span class="exe-v">+1 per 5 seconds remaining</span></div>`},
-      classes:{title:'Modules',body:CLASSES.map(c=>{const u=isClassUnlocked(c.id);return`<div class="exe-kvr"><span class="exe-k${u?'':' exe-lk'}">${c.name}</span><span class="exe-v${u?'':' exe-lk'}">${u?c.desc:('LOCKED &mdash; '+c.unlockReq)}</span></div>`;}).join('')},
+      classes:{title:'Modules',body:CLASSES.map(c=>{const u=isClassUnlocked(c.id);const censored=(c.id==='eden'||c.id==='manna')&&!u;return censored?`<div class="exe-kvr"><span class="exe-k">${c.name}</span><span class="exe-v"><span class="exe-censor">requires ROOT.ACCESS</span></span></div>`:`<div class="exe-kvr"><span class="exe-k${u?'':' exe-lk'}">${c.name}</span><span class="exe-v${u?'':' exe-lk'}">${u?c.desc:('LOCKED &mdash; '+c.unlockReq)}</span></div>`;}).join('')},
       relics:{title:'Protocols',body:`<p>Installed between levels. Persist across the session. Click the badge in-game to execute.</p>`+relicList.map(([n,p,d])=>`<div class="exe-kvr"><span class="exe-k">${n}</span><span class="exe-v">${p}&#x26BF; &middot; ${d}</span></div>`).join('')},
       cursed:{title:'Dependencies',body:`<p class="exe-wr">~30% chance to appear. More powerful but each one installs a hook into your process.</p>`+cursedList.map(([n,p,b,c])=>`<div class="exe-kvr"><span class="exe-k">${n}</span><span class="exe-v">${p}&#x26BF; &middot; ${b} &middot; <span class="exe-wr">${c}</span></span></div>`).join('')},
-      protocol:{title:'ROOT.ACCESS',body:`<p>Unlocks after clearing Level 04. Adds a fifth level. Stacks system errors onto every level.</p><p class="exe-wr">L01-L03: 1 error. L04-L05: 2 errors stacked.</p>`+MODIFIERS.map(m=>`<div class="exe-kvr"><span class="exe-k">${m.name}</span><span class="exe-v">${m.desc}</span></div>`).join('')},
+      protocol:{title:'ROOT.ACCESS',body:localStorage.getItem('sweeper_hardUnlocked')==='1'?`<p>Unlocks after clearing Level 04. Adds a fifth level. Stacks system errors onto every level.</p><p class="exe-wr">L01-L03: 1 error. L04-L05: 2 errors stacked.</p>`+MODIFIERS.map(m=>`<div class="exe-kvr"><span class="exe-k">${m.name}</span><span class="exe-v">${m.desc}</span></div>`).join(''):`<p><span class="exe-censor">Unlocks after</span> clearing Level 04. <span class="exe-censor">Adds a fifth level.</span> <span class="exe-censor">Stacks system errors onto every level.</span></p><p class="exe-wr"><span class="exe-censor">L01-L03: 1 error.</span> <span class="exe-censor">L04-L05: 2 errors stacked.</span></p><div class="exe-kvr"><span class="exe-k"><span class="exe-censor">REDACTED</span></span><span class="exe-v"><span class="exe-censor">classified information</span></span></div><div class="exe-kvr"><span class="exe-k"><span class="exe-censor">REDACTED</span></span><span class="exe-v"><span class="exe-censor">classified information</span></span></div><div class="exe-kvr"><span class="exe-k"><span class="exe-censor">REDACTED</span></span><span class="exe-v"><span class="exe-censor">classified information</span></span></div>`},
     };
     const topicKeys=Object.keys(topics);
     const topicNavHTML=topicKeys.map((k,i)=>`<div class="exe-topic ${i===0?'sel':''}" data-topic="${k}"><span class="exe-arrow">&rsaquo;</span>${topics[k].title}</div>`).join('');
@@ -2449,7 +2748,7 @@ class GameUI{
     const winHTML=`
     <div class="exe-titlebar">
       <div class="exe-ttext"><span class="exe-ic">S</span>SWEEPER.EXE &middot; [session ${sessionStr}]<span class="exe-expired">&middot; [TRIAL EXPIRED]</span></div>
-      <div class="exe-tbtns"><button class="exe-tbtn exe-close-btn" title="Close window">&times;</button></div>
+      <div class="exe-tbtns"><button class="exe-tbtn exe-reload-btn" title="Reload">&#x21BB;</button><button class="exe-tbtn exe-close-btn" title="Close window">&times;</button></div>
     </div>
     <div class="exe-sw">
       <div class="exe-client">
@@ -2468,13 +2767,13 @@ class GameUI{
             <div class="exe-section-title">Select Module</div>
             <div class="exe-listbox">${modulesHTML}</div>
           </div>
-          <div class="exe-section">
+          ${hardUnlocked?`<div class="exe-section">
             <div class="exe-section-title">Options</div>
-            <div class="exe-check ${hardUnlocked?'':'locked'}" id="exe-hard">
+            <div class="exe-check" id="exe-hard">
               <div class="exe-cbox ${hardActive?'checked':''}"></div>
-              <div>ROOT.ACCESS ${hardUnlocked?'(5 levels &middot; modifiers active)':'(locked)'}</div>
+              <div>ROOT.ACCESS (5 levels &middot; modifiers active)</div>
             </div>
-          </div>
+          </div>`:''}
           <div class="exe-btn-row">
             <button class="exe-btn default" id="exe-run">Run</button>
             <button class="exe-btn" id="exe-help">Help</button>
@@ -2515,13 +2814,17 @@ class GameUI{
     // Help button opens the LORE.HLP window on top
     win.querySelector('#exe-help').addEventListener('click',()=>{this._openApp('lore');});
 
-    // Run button
+    // Run button — brief loading delay like an old PC
     win.querySelector('#exe-run').addEventListener('click',()=>{
       sfx.init();
-      this.game.reset();
-      const line=NARRATOR.react('startRun');
-      if(line)this.setFlavor(line);
-      this.startLevel();
+      const btn=win.querySelector('#exe-run');
+      btn.disabled=true;btn.textContent='Loading...';
+      setTimeout(()=>{
+        this.game.reset();
+        const line=NARRATOR.react('startRun');
+        if(line)this.setFlavor(line);
+        this.startLevel();
+      },1200);
     });
   }
 
@@ -2538,6 +2841,7 @@ class GameUI{
     </div>
     <div class="exe-btn-row"><button class="exe-btn default" id="sysalert-ok">Continue</button><button class="exe-btn" id="sysalert-cancel">Cancel</button></div>`;
     const win=this._renderWin('sysalert',winHTML);
+    sfx.error();
     win.querySelector('#sysalert-ok').addEventListener('click',()=>this._dismissSysAlert());
     win.querySelector('#sysalert-cancel').addEventListener('click',()=>this._dismissSysAlert());
   }
@@ -2555,28 +2859,28 @@ class GameUI{
   showCodex(){
     document.body.classList.remove('exe-closed');
     const relicList=[
-      ['BACKUP.SYS','30','Reclaims 20 seconds'],
-      ['FIREWALL.SYS','46','Absorbs your next mine hit'],
-      ['SCANDISK.SYS','36','Auto-marks 3 hidden mines'],
-      ['DEFRAG.SYS','42','Reveals 2&times;2 region, marks mines'],
-      ['TRACERT.SYS','48','Reveals empty tiles touching a correct mark'],
+      ['BACKUP','30','Reclaims 20 seconds'],
+      ['FIREWALL','46','Absorbs your next mine hit'],
+      ['SCANDISK','36','Auto-marks 3 hidden mines'],
+      ['DEFRAG','42','Reveals 2&times;2 region, marks mines'],
+      ['TRACERT','48','Reveals empty tiles touching a correct mark'],
     ];
     const cursedList=[
-      ['SPYWARE.DLL','40','Reveals 5 safe as dead tiles (no info)','revealed tiles show no numbers'],
-      ['ADWARE.DLL','30','+30s time','key gain halved for 60s'],
-      ['BLOATWARE.DLL','46','Absorbs 2 mine hits','each hit halves time +5s'],
-      ['ROOTKIT.DLL','48','Reveals empty tiles around all flags','one wrong flag ends the game'],
-      ['TROJAN.DLL','36','Marks 5 hidden mines','removes all marks &minus;20s'],
+      ['SPYWARE','40','Reveals 5 safe as dead tiles (no info)','revealed tiles show no numbers'],
+      ['ADWARE','30','+30s time','key gain halved for 60s'],
+      ['BLOATWARE','46','Absorbs 2 mine hits','each hit halves time +5s'],
+      ['ROOTKIT','48','Reveals empty tiles around all flags','one wrong flag ends the game'],
+      ['TROJAN','36','Marks 5 hidden mines','removes all marks &minus;20s'],
     ];
     const topics={
       objective:{title:'Objective',body:`<p>Sweep four levels (five with ROOT.ACCESS). Reveal every safe tile before the clock runs out. Hit a mine or reach 00:00 and the process terminates. 30% of your remaining time carries forward.</p><div class="exe-ascii">LEVEL_01 &rarr; LEVEL_02 &rarr; LEVEL_03 &rarr; LEVEL_04 [ &rarr; LEVEL_05 ]</div><p class="exe-note">// if the clock reaches 00:00, the session ends.</p>`},
       controls:{title:'Controls',body:`<div class="exe-kvr"><span class="exe-k">left-click</span><span class="exe-v">Reveal tile</span></div><div class="exe-kvr"><span class="exe-k">right-click</span><span class="exe-v">Mark tile</span></div><div class="exe-kvr"><span class="exe-k">long-press</span><span class="exe-v">Mark on mobile</span></div><div class="exe-kvr"><span class="exe-k">click num</span><span class="exe-v">Chord: reveal neighbors when mark count matches</span></div><div class="exe-kvr"><span class="exe-k">click badge</span><span class="exe-v">Activate a protocol</span></div>`},
-      levels:{title:'Levels',body:`<table><tr><th>#</th><th>Grid</th><th>Mines</th><th>Time</th></tr><tr><td>01</td><td>8&times;8</td><td>10</td><td>2:30</td></tr><tr><td>02</td><td>10&times;10</td><td>15</td><td>2:20</td></tr><tr><td>03</td><td>12&times;12</td><td>25</td><td>2:10</td></tr><tr><td>04</td><td>14&times;14</td><td>35</td><td>2:00</td></tr><tr><td>05</td><td>16&times;16</td><td>50</td><td>1:50</td></tr></table><p class="exe-note">// level 05 requires root.access = true</p>`},
+      levels:{title:'Levels',body:`<table><tr><th>#</th><th>Grid</th><th>Mines</th><th>Time</th></tr><tr><td>01</td><td>8&times;8</td><td>10</td><td>2:30</td></tr><tr><td>02</td><td>10&times;10</td><td>15</td><td>2:20</td></tr><tr><td>03</td><td>12&times;12</td><td>25</td><td>2:10</td></tr><tr><td>04</td><td>14&times;14</td><td>35</td><td>2:00</td></tr>`+(localStorage.getItem('sweeper_hardUnlocked')==='1'?`<tr><td>05</td><td>16&times;16</td><td>50</td><td>1:50</td></tr></table>`:`<tr><td>05</td><td><span class="exe-censor">??&times;??</span></td><td><span class="exe-censor">??</span></td><td><span class="exe-censor">?:??</span></td></tr></table>`)},
       shards:{title:'Keys',body:`<p>Keys are recovered during a session. Spent on protocols and dependencies between sectors.</p><div class="exe-kvr"><span class="exe-k">per tile</span><span class="exe-v">+1 key</span></div><div class="exe-kvr"><span class="exe-k">combo</span><span class="exe-v">Chain reveals within 800ms: +1 starting at 3rd, caps at +5</span></div><div class="exe-kvr"><span class="exe-k">sector clear</span><span class="exe-v">+10 keys</span></div><div class="exe-kvr"><span class="exe-k">time bonus</span><span class="exe-v">+1 per 5 seconds remaining</span></div>`},
-      classes:{title:'Modules',body:CLASSES.map(c=>{const u=isClassUnlocked(c.id);return`<div class="exe-kvr"><span class="exe-k${u?'':' exe-lk'}">${c.name}</span><span class="exe-v${u?'':' exe-lk'}">${u?c.desc:('LOCKED &mdash; '+c.unlockReq)}</span></div>`;}).join('')},
+      classes:{title:'Modules',body:CLASSES.map(c=>{const u=isClassUnlocked(c.id);const censored=(c.id==='eden'||c.id==='manna')&&!u;return censored?`<div class="exe-kvr"><span class="exe-k">${c.name}</span><span class="exe-v"><span class="exe-censor">requires ROOT.ACCESS</span></span></div>`:`<div class="exe-kvr"><span class="exe-k${u?'':' exe-lk'}">${c.name}</span><span class="exe-v${u?'':' exe-lk'}">${u?c.desc:('LOCKED &mdash; '+c.unlockReq)}</span></div>`;}).join('')},
       relics:{title:'Protocols',body:`<p>Installed between levels. Persist across the session. Click the badge in-game to execute.</p>`+relicList.map(([n,p,d])=>`<div class="exe-kvr"><span class="exe-k">${n}</span><span class="exe-v">${p}&#x26BF; &middot; ${d}</span></div>`).join('')},
       cursed:{title:'Dependencies',body:`<p class="exe-wr">~30% chance to appear. More powerful but each one installs a hook into your process.</p>`+cursedList.map(([n,p,b,c])=>`<div class="exe-kvr"><span class="exe-k">${n}</span><span class="exe-v">${p}&#x26BF; &middot; ${b} &middot; <span class="exe-wr">${c}</span></span></div>`).join('')},
-      protocol:{title:'ROOT.ACCESS',body:`<p>Unlocks after clearing Level 04. Adds a fifth level. Stacks system errors onto every level.</p><p class="exe-wr">L01-L03: 1 error. L04-L05: 2 errors stacked.</p>`+MODIFIERS.map(m=>`<div class="exe-kvr"><span class="exe-k">${m.name}</span><span class="exe-v">${m.desc}</span></div>`).join('')},
+      protocol:{title:'ROOT.ACCESS',body:localStorage.getItem('sweeper_hardUnlocked')==='1'?`<p>Unlocks after clearing Level 04. Adds a fifth level. Stacks system errors onto every level.</p><p class="exe-wr">L01-L03: 1 error. L04-L05: 2 errors stacked.</p>`+MODIFIERS.map(m=>`<div class="exe-kvr"><span class="exe-k">${m.name}</span><span class="exe-v">${m.desc}</span></div>`).join(''):`<p><span class="exe-censor">Unlocks after</span> clearing Level 04. <span class="exe-censor">Adds a fifth level.</span> <span class="exe-censor">Stacks system errors onto every level.</span></p><p class="exe-wr"><span class="exe-censor">L01-L03: 1 error.</span> <span class="exe-censor">L04-L05: 2 errors stacked.</span></p><div class="exe-kvr"><span class="exe-k"><span class="exe-censor">REDACTED</span></span><span class="exe-v"><span class="exe-censor">classified information</span></span></div><div class="exe-kvr"><span class="exe-k"><span class="exe-censor">REDACTED</span></span><span class="exe-v"><span class="exe-censor">classified information</span></span></div><div class="exe-kvr"><span class="exe-k"><span class="exe-censor">REDACTED</span></span><span class="exe-v"><span class="exe-censor">classified information</span></span></div>`},
     };
     const topicKeys=Object.keys(topics);
     const topicNavHTML=topicKeys.map((k,i)=>`<div class="exe-topic ${i===0?'sel':''}" data-topic="${k}"><span class="exe-arrow">&rsaquo;</span>${topics[k].title}</div>`).join('');
@@ -2585,7 +2889,7 @@ class GameUI{
     const winHTML=`
     <div class="exe-titlebar exe-titlebar-help">
       <div class="exe-ttext"><span class="exe-ic">?</span>LORE.HLP &middot; [help viewer]</div>
-      <div class="exe-tbtns"><button class="exe-tbtn exe-close-btn" title="Close window">&times;</button></div>
+      <div class="exe-tbtns"><button class="exe-tbtn exe-reload-btn" title="Reload">&#x21BB;</button><button class="exe-tbtn exe-close-btn" title="Close window">&times;</button></div>
     </div>
     <div class="exe-sw">
       <div class="exe-client">
@@ -2617,14 +2921,15 @@ class GameUI{
 
   // ========== FAKE FILE SYSTEM ==========
   _FS(){
-    return {
+    const beatNormal=localStorage.getItem('sweeper_beatNormal')==='1'||localStorage.getItem('sweeper_hardUnlocked')==='1';
+    const fs={
       'C:\\':[
         {name:'WINDOWS',type:'folder',size:'',icon:'\u{1F4C1}'},
         {name:'PROGRAM FILES',type:'folder',size:'',icon:'\u{1F4C1}'},
         {name:'TEMP',type:'folder',size:'',icon:'\u{1F4C1}'},
         {name:'AUTOEXEC.BAT',type:'file',size:'1 KB',icon:'\u{1F4C4}',content:'@ECHO OFF\nPATH C:\\WINDOWS;C:\\WINDOWS\\COMMAND\nSET BLASTER=A220 I5 D1\nLH C:\\WINDOWS\\COMMAND\\MSCDEX.EXE /D:OEMCD001\n\nREM === ADDED 01/12/1998 ===\nREM do not remove this line\nC:\\PROGRA~1\\SWEEPER\\SWEEPER.EXE /silent /nosplash\nREM === why is this here? i didnt add this ==='},
         {name:'CONFIG.SYS',type:'file',size:'1 KB',icon:'\u{1F4C4}',content:'DEVICE=C:\\WINDOWS\\HIMEM.SYS\nDEVICE=C:\\WINDOWS\\EMM386.EXE NOEMS\nDOS=HIGH,UMB\nFILES=40\nBUFFERS=20\nSTACKS=9,256\nLASTDRIVE=Z\n\n; session_count=47\n; do not modify this value manually\n; do not modify this value manually\n; do not modify this value manually'},
-        {name:'AUTHOR.TXT',type:'file',size:'1 KB',icon:'\u{1F4C4}',content:'SWEEPER.EXE v4.0.1\nby Thomas Ou\n\n─────────────────────────\n\nWeb:      thomasou.com\nGitHub:   github.com/Smokeybear10\nLinkedIn: linkedin.com/in/thomasou0\n\n─────────────────────────\n\nBuilt with HTML, CSS, and JS.\nNo frameworks. No dependencies.\nJust one file.'},
+        {name:'AUTHOR.TXT',type:'file',size:'1 KB',icon:'\u{1F4C4}',content:'SWEEPER.EXE v4.0.1\nby Thomas Ou\n\n─────────────────────────\n\nWeb:      thomasou.com\nGitHub:   github.com/Smokeybear10\nLinkedIn: linkedin.com/in/thomasou0\n\n─────────────────────────\n\nLook in project files for help...\nSome answers are hidden in plain sight.'},
       ],
       'C:\\WINDOWS':[
         {name:'..',type:'up',size:'',icon:'\u{1F4C2}',path:'C:\\'},
@@ -2644,7 +2949,7 @@ class GameUI{
         {name:'..',type:'up',size:'',icon:'\u{1F4C2}',path:'C:\\WINDOWS'},
         {name:'SWEEPER.EXE',type:'shortcut',size:'1 KB',icon:'S'},
         {name:'LORE.HLP',type:'shortcut',size:'1 KB',icon:'?'},
-        {name:'AUTHOR.TXT',type:'file',size:'1 KB',icon:'\u{1F4C4}',content:'SWEEPER.EXE v4.0.1\nby Thomas Ou\n\n─────────────────────────\n\nWeb:      thomasou.com\nGitHub:   github.com/Smokeybear10\nLinkedIn: linkedin.com/in/thomasou0\n\n─────────────────────────\n\nBuilt with HTML, CSS, and JS.\nNo frameworks. No dependencies.\nJust one file.'},
+        {name:'AUTHOR.TXT',type:'file',size:'1 KB',icon:'\u{1F4C4}',content:'SWEEPER.EXE v4.0.1\nby Thomas Ou\n\n─────────────────────────\n\nWeb:      thomasou.com\nGitHub:   github.com/Smokeybear10\nLinkedIn: linkedin.com/in/thomasou0\n\n─────────────────────────\n\nLook in project files for help...\nSome answers are hidden in plain sight.'},
       ],
       'C:\\PROGRAM FILES':[
         {name:'..',type:'up',size:'',icon:'\u{1F4C2}',path:'C:\\'},
@@ -2664,7 +2969,7 @@ class GameUI{
         {name:'SESSION.LOG',type:'file',size:'47 KB',icon:'\u{1F4C4}',content:'[SESSION 00001]  01/12/1998  installed. first run.\n[SESSION 00002]  01/12/1998  completed ring 1.\n[SESSION 00003]  01/12/1998  trial expired. continuing.\n[SESSION 00004]  01/12/1998  ring 2 reached.\n...\n[SESSION 00019]  01/13/1998  ring 3 completed for first time.\n[SESSION 00020]  01/13/1998  user attempted uninstall. denied.\n[SESSION 00021]  01/13/1998  user attempted uninstall. denied.\n[SESSION 00022]  01/13/1998  user deleted AUTOEXEC.BAT entry.\n[SESSION 00023]  01/13/1998  AUTOEXEC.BAT entry restored.\n...\n[SESSION 00038]  01/14/1998  ring 4 reached. root.access available.\n[SESSION 00039]  01/14/1998  user enabled root.access.\n[SESSION 00040]  01/14/1998  user disabled root.access.\n[SESSION 00041]  01/14/1998  root.access re-enabled. user did not do this.\n...\n[SESSION 00044]  01/15/1998  03:12 AM  ring 4 completed.\n[SESSION 00045]  01/15/1998  03:28 AM  ring 5 reached.\n[SESSION 00046]  01/15/1998  03:44 AM  ring 5 failed. 3 tiles remaining.\n[SESSION 00047]  01/15/1998  03:47 AM  current session. still running.\n[SESSION 00048]  [PENDING]'},
         {name:'UNINSTAL.EXE',type:'file',size:'0 KB',icon:'\u{1F6AB}',content:'This program has been disabled.\n\nReason: ACCESS_DENIED\nOrigin: SWEEPER.EXE\n\n\"Uninstallation is not supported\n  at this time or any other time.\"\n\nFile size: 0 bytes.\nThe uninstaller uninstalled itself.'},
         {name:'README.1ST',type:'file',size:'1 KB',icon:'\u{1F4C4}',content:'SWEEPER v4.0.1\nCopyright (C) 1997 Blitz Interactive\n\nThank you for trying SWEEPER!\nRegistration: $14.99 (check or money order)\n\nMail to:\n  Blitz Interactive\n  P.O. Box 4814\n  [ADDRESS CORRUPTED]\n\nFor support contact:\n  support@blitz-interactive.com\n  (this domain was never registered)'},
-        {name:'CHEATS.TXT',type:'file',size:'1 KB',icon:'\u{1F4C4}',content:'DEV CHEAT CODES\n================\n\nCtrl+M  -  Toggle mine visibility\nCtrl+I  -  Toggle invincibility\nCtrl+T  -  Toggle unlimited time\nCtrl+S  -  +100 keys\nCtrl+W  -  Skip to next level\n\nPress again to toggle off (M, I, T).\nW does not work on the final level.\n\n// this file was not included\n// in the retail build.\n// how did you find this?'},
+        {name:'CHEATS.TXT',type:'file',size:'1 KB',icon:'\u{1F4C4}',content:'DEV CHEAT CODES\n================\n\nCtrl+M  -  Toggle mine visibility\nCtrl+I  -  Toggle invincibility\nCtrl+T  -  Toggle unlimited time\nCtrl+S  -  +100 keys\nCtrl+W  -  Skip to next level\n\nPress again to toggle off (M, I, T).\nW does not work on the final level.\n\n// cheats are disabled by default.\n// open TERMINAL and type: SNAKE\n\n// this file was not included\n// in the retail build.\n// how did you find this?'},
       ],
       'C:\\TEMP':[
         {name:'..',type:'up',size:'',icon:'\u{1F4C2}',path:'C:\\'},
@@ -2673,6 +2978,26 @@ class GameUI{
         {name:'SWAPPER.TMP',type:'file',size:'64 KB',icon:'\u{1F4C4}',content:'[swap file]\n\nPages: 47\nFaults: 47\nCoincidence: unlikely'},
       ],
     };
+    // SAVES subfolder
+    const saves=JSON.parse(localStorage.getItem('sweeper_saves')||'{}');
+    const saveKeys=Object.keys(saves);
+    fs['C:\\PROGRAM FILES\\SWEEPER'].push({name:'SAVES',type:'folder',size:'',icon:'\u{1F4C1}'});
+    const saveFiles=[{name:'..',type:'up',size:'',icon:'\u{1F4C2}',path:'C:\\PROGRAM FILES\\SWEEPER'}];
+    saveKeys.forEach(name=>{
+      const s=saves[name];
+      const cls=classById(s.gameClass||'sweeper');
+      const timeStr=Math.floor(s.timeRemaining/60)+':'+String(s.timeRemaining%60).padStart(2,'0');
+      saveFiles.push({
+        name,type:'save',size:'1 KB',icon:'\u{1F4BE}',
+        content:`SAVE FILE: ${name}\n\nLevel:  ${s.level+1} of ${s.totalDepths}\nModule: ${cls.name}\nKeys:   ${s.shards}\nTime:   ${timeStr}\nMode:   ${s.hardMode?'ROOT.ACCESS':'NORMAL'}`
+      });
+    });
+    fs['C:\\PROGRAM FILES\\SWEEPER\\SAVES']=saveFiles;
+    if(beatNormal){
+      fs['C:\\WINDOWS\\DESKTOP'].push({name:'ROOT.TXT',type:'file',size:'1 KB',icon:'\u{1F4C4}',content:'// ROOT.ACCESS\n// ─────────────────────────\n//\n// The fruit of knowledge\n// grants access to deeper roots.\n//\n// Open TERMINAL.\n// Type the answer.\n//\n//\n//\n// APPLE'});
+      fs['C:\\'].push({name:'ROOT.TXT',type:'file',size:'1 KB',icon:'\u{1F4C4}',content:'// ROOT.ACCESS\n// ─────────────────────────\n//\n// The fruit of knowledge\n// grants access to deeper roots.\n//\n// Open TERMINAL.\n// Type the answer.\n//\n//\n//\n// APPLE'});
+    }
+    return fs;
   }
 
   _RECYCLE(){
@@ -2699,7 +3024,7 @@ class GameUI{
     const winHTML=`
     <div class="exe-titlebar">
       <div class="exe-ttext"><span class="exe-ic">PC</span>${path==='C:\\'?'My Computer':path}</div>
-      <div class="exe-tbtns"><button class="exe-tbtn exe-close-btn" title="Close">&times;</button></div>
+      <div class="exe-tbtns"><button class="exe-tbtn exe-reload-btn" title="Reload">&#x21BB;</button><button class="exe-tbtn exe-close-btn" title="Close">&times;</button></div>
     </div>
     <div class="exe-client" style="padding:0;">
       <div style="background:#EAEAEA;padding:3px 8px;font-size:10px;font-weight:700;border-bottom:1px solid #6E6E6E;font-family:'Tahoma',sans-serif;color:#000;">
@@ -2727,6 +3052,7 @@ class GameUI{
       const nm=f.name.toUpperCase();
       if(nm==='SWEEPER.EXE'||type==='shortcut'&&nm==='SWEEPER.EXE'){this._openApp('sweeper');return;}
       if(nm==='LORE.HLP'||type==='shortcut'&&nm==='LORE.HLP'){this._openApp('lore');return;}
+      if(type==='save'){this._loadSaveFile(f.name);return;}
       if(f.content)this.showNotepad(f.name,f.content);
     });
   }
@@ -2737,7 +3063,7 @@ class GameUI{
     const winHTML=`
     <div class="exe-titlebar">
       <div class="exe-ttext"><span class="exe-ic">\u2718</span>Recycle Bin</div>
-      <div class="exe-tbtns"><button class="exe-tbtn exe-close-btn" title="Close">&times;</button></div>
+      <div class="exe-tbtns"><button class="exe-tbtn exe-reload-btn" title="Reload">&#x21BB;</button><button class="exe-tbtn exe-close-btn" title="Close">&times;</button></div>
     </div>
     <div class="exe-client" style="padding:0;">
       <div style="background:#EAEAEA;padding:3px 8px;font-size:10px;border-bottom:1px solid #6E6E6E;font-family:'Tahoma',sans-serif;color:#000;">
@@ -2771,6 +3097,91 @@ class GameUI{
     <div style="background:#FFF;border:1px solid #000;box-shadow:inset 1px 1px 0 #404040,inset -1px -1px 0 #EFEFEF;padding:8px 10px;min-height:120px;max-height:260px;overflow-y:auto;font-family:'JetBrains Mono',monospace;font-size:11px;color:#000;white-space:pre-wrap;line-height:1.55;">${escaped}</div>`;
     const win=this._renderWin(winId,winHTML);
     win.dataset.noteLabel=filename;
+  }
+
+  showTerminal(){
+    const winHTML=`
+    <div class="exe-titlebar">
+      <div class="exe-ttext"><span class="exe-ic" style="font-size:9px;">&gt;_</span>TERMINAL</div>
+      <div class="exe-tbtns"><button class="exe-tbtn exe-reload-btn" title="Reload">&#x21BB;</button><button class="exe-tbtn exe-close-btn" title="Close">&times;</button></div>
+    </div>
+    <div class="term-body" id="term-output">
+      <div class="term-line">SWEEPER Terminal v4.0.1</div>
+      <div class="term-line">Copyright (C) 1997 Smokey Interactive.</div>
+      <div class="term-line">&nbsp;</div>
+      <div class="term-line">Type <span class="term-info">HELP</span> for a list of commands.</div>
+      <div class="term-line">&nbsp;</div>
+    </div>
+    <div class="term-input-row">
+      <span class="term-prompt">C:\\&gt;</span>
+      <input class="term-input" id="term-input" type="text" spellcheck="false" autocomplete="off" autofocus>
+    </div>
+    <div class="exe-status"><div class="exe-sb-cell">TERMINAL &mdash; ready</div></div>`;
+    const win=this._renderWin('terminal',winHTML);
+    const input=win.querySelector('#term-input');
+    const output=win.querySelector('#term-output');
+    input.focus();
+    const self=this;
+    const COMMANDS={
+      help:()=>'<span class="term-info">Available commands:</span>\n  HELP        Show this list\n  CLEAR       Clear terminal\n  VER         Show version\n  DIR         List files\n  STATUS      Show game state\n  ECHO [msg]  Echo a message\n  RESTART     Restart the system\n\n<span class="term-warn">Some inputs are not commands.</span>',
+      restart:()=>{setTimeout(()=>self._doRestart(),500);return'<span class="term-warn">Restarting system...</span>';},
+      clear:()=>{output.innerHTML='';return null;},
+      ver:()=>'SWEEPER.EXE v4.0.1\nBLITZ NECROTRON BIOS v2.04.1997\nSession '+String(parseInt(localStorage.getItem('sweeper_sessions')||'47',10)).padStart(5,'0'),
+      dir:()=>'C:\\PROGRAM FILES\\SWEEPER\n\n  SWEEPER.EXE    248 KB\n  LORE.HLP        12 KB\n  genesis.dll     12 KB\n  solomon.dll     28 KB\n  lazarus.dll     20 KB\n  samson.dll      36 KB\n  eden.dll        44 KB\n  manna.dll       52 KB\n  ????????.dll     0 KB\n\n  8 file(s)',
+      status:()=>{
+        const g=self.game;
+        return`  Module:  ${classById(g.gameClass).name}\n  Level:   ${g.level+1}/${g.totalDepths}\n  Keys:    ${g.shards}\n  Hard:    ${g.hardMode?'YES':'NO'}`;
+      },
+      echo:(args)=>args||'',
+    };
+    const SECRETS={
+      'APPLE':()=>{
+        if(localStorage.getItem('sweeper_hardUnlocked')==='1')return'<span class="term-warn">ROOT.ACCESS is already active.</span>';
+        localStorage.setItem('sweeper_hardUnlocked','1');
+        return'<span class="term-ok">Authenticating...</span>\n<span class="term-ok">ROOT.ACCESS granted.</span>\n\n<span class="term-info">Deeper partitions now accessible.</span>\n<span class="term-info">Five levels. Modifiers active. No mercy.</span>\n\n<span class="term-warn">Restart SWEEPER.EXE to apply.</span>';
+      },
+      'SNAKE':()=>{
+        if(localStorage.getItem('sweeper_cheatsUnlocked')==='1')return'<span class="term-warn">Dev mode is already active.</span>';
+        localStorage.setItem('sweeper_cheatsUnlocked','1');
+        return'<span class="term-ok">Dev mode enabled.</span>\n\n<span class="term-info">Cheat codes are now active.</span>\n<span class="term-info">See CHEATS.TXT for key bindings.</span>';
+      },
+    };
+    input.addEventListener('keydown',e=>{
+      if(e.key!=='Enter')return;
+      const raw=input.value.trim();input.value='';
+      if(!raw)return;
+      const parts=raw.split(/\s+/);
+      const cmd=parts[0].toLowerCase();
+      const args=parts.slice(1).join(' ');
+      const echo=document.createElement('div');
+      echo.className='term-line';echo.innerHTML='<span class="term-ok">C:\\&gt;</span> '+raw.replace(/</g,'&lt;');
+      output.appendChild(echo);
+      const secret=SECRETS[raw.trim().toUpperCase()];
+      if(secret){
+        const out=document.createElement('div');
+        out.className='term-line';out.innerHTML=secret();
+        output.appendChild(out);
+      }else{
+        const handler=COMMANDS[cmd];
+        if(handler){
+          const result=handler(args);
+          if(result!==null&&result!==undefined){
+            const out=document.createElement('div');
+            out.className='term-line';out.innerHTML=result;
+            output.appendChild(out);
+          }
+        }else{
+          const out=document.createElement('div');
+          out.className='term-line';out.innerHTML='<span class="term-err">Bad command or file name: '+cmd+'</span>';
+          output.appendChild(out);
+        }
+      }
+      const spacer=document.createElement('div');
+      spacer.className='term-line';spacer.innerHTML='&nbsp;';
+      output.appendChild(spacer);
+      output.scrollTop=output.scrollHeight;
+    });
+    win.addEventListener('click',()=>input.focus());
   }
 
   startLevel(){
@@ -2809,10 +3220,7 @@ class GameUI{
     }).join('');
 
     let modBarHTML='';
-    const cls=classById(g.gameClass);
-    const showClassBadge=g.gameClass!=='sweeper';
     const badges=[];
-    if(showClassBadge)badges.push(`<span class="class-badge" title="${cls.desc}"><span class="cb-icon">${cls.icon}</span>${cls.name}</span>`);
     if(g.modifiers.length>0)badges.push(...g.modifiers.map(m=>`<span class="modifier-badge" title="${m.desc}"><span class="mg">${m.icon}</span>${m.name}</span>`));
     if(badges.length>0)modBarHTML=`<div class="modifier-bar">${badges.join('')}</div>`;
 
@@ -3061,7 +3469,7 @@ class GameUI{
     const shardBonus=10*(g.level+1)+Math.floor(g.timeRemaining/5);
     const isLast=g.level>=g.totalDepths-1;
     const justUnlockedHard=isLast&&!g.hardMode&&localStorage.getItem('sweeper_hardUnlocked')!=='1';
-    if(isLast&&!g.hardMode)localStorage.setItem('sweeper_hardUnlocked','1');
+    if(justUnlockedHard)localStorage.setItem('sweeper_beatNormal','1');
     const elapsed=this.levelStartTime?Math.floor((Date.now()-this.levelStartTime)/1000):60;
     const narratorLine=NARRATOR.react('levelComplete',{level:g.level,elapsed});
     this.setFlavor(narratorLine||'');
@@ -3078,19 +3486,19 @@ class GameUI{
     }
 
     const shop=[
-      {id:'timewarp',glyph:ICONS.time_glyph,name:'BACKUP.SYS',price:30},
-      {id:'shield',glyph:ICONS.shield_glyph,name:'FIREWALL.SYS',price:46},
-      {id:'compass',glyph:ICONS.compass_glyph,name:'SCANDISK.SYS',price:36},
-      {id:'oracle',glyph:ICONS.oracle_glyph,name:'DEFRAG.SYS',price:42},
-      {id:'lantern',glyph:ICONS.lantern_glyph,name:'TRACERT.SYS',price:48},
+      {id:'timewarp',glyph:ICONS.time_glyph,name:'BACKUP',price:30},
+      {id:'shield',glyph:ICONS.shield_glyph,name:'FIREWALL',price:46},
+      {id:'compass',glyph:ICONS.compass_glyph,name:'SCANDISK',price:36},
+      {id:'oracle',glyph:ICONS.oracle_glyph,name:'DEFRAG',price:42},
+      {id:'lantern',glyph:ICONS.lantern_glyph,name:'TRACERT',price:48},
     ];
     const cursedShop=[
-      {id:'hex',glyph:ICONS.hex_glyph,name:'SPYWARE.DLL',price:40,cursed:true},
-      {id:'bargain',glyph:ICONS.bargain_glyph,name:'ADWARE.DLL',price:30,cursed:true},
-      {id:'scapegoat',glyph:ICONS.scapegoat_glyph,name:'BLOATWARE.DLL',price:46,cursed:true},
-      {id:'pyre',glyph:ICONS.pyre_glyph,name:'ROOTKIT.DLL',price:48,cursed:true},
+      {id:'hex',glyph:ICONS.hex_glyph,name:'SPYWARE',price:40,cursed:true},
+      {id:'bargain',glyph:ICONS.bargain_glyph,name:'ADWARE',price:30,cursed:true},
+      {id:'scapegoat',glyph:ICONS.scapegoat_glyph,name:'BLOATWARE',price:46,cursed:true},
+      {id:'pyre',glyph:ICONS.pyre_glyph,name:'ROOTKIT',price:48,cursed:true},
     ];
-    cursedShop.push({id:'tithe',glyph:ICONS.tithe_glyph,name:'TROJAN.DLL',price:36,cursed:true});
+    cursedShop.push({id:'tithe',glyph:ICONS.tithe_glyph,name:'TROJAN',price:36,cursed:true});
     let items;
     if(g.gameClass==='eden'){
       const shuffled=[...cursedShop].sort(()=>Math.random()-0.5);
@@ -3105,7 +3513,7 @@ class GameUI{
     }
 
     const lastTitle=g.hardMode?'SYSTEM CLEARED':'ALL SECTORS SWEPT';
-    const lastFlavor=justUnlockedHard?'ROOT.ACCESS granted. Deeper partitions now accessible.':(g.hardMode?'All levels swept. Process complete. Session terminated cleanly.':'Four levels cleared. Process complete.');
+    const lastFlavor=justUnlockedHard?'Four levels cleared. A new file has appeared on your system.<br><br><span style="color:var(--accent);font-family:var(--font-mono);">Check C:\\ or the Desktop.</span>':(g.hardMode?'All levels swept. Process complete. Session terminated cleanly.':'Four levels cleared. Process complete.');
 
     let html=`<div class="modal-overlay" id="modal"><div class="modal level-complete">
       <h2>${isLast?lastTitle:'Level '+(g.level+1)+' Cleared'}</h2>
@@ -3154,7 +3562,7 @@ class GameUI{
           if(el.classList.contains('bought')||el.classList.contains('cant-afford'))return;
           const price=+el.dataset.price;
           if(g.shards<price)return;
-          g.shards-=price;
+          g.shards-=price;sfx.purchase();
           const pickId=el.dataset.pick;
           g.powerups.push(pickId);
           if(pickId==='scapegoat')g.scapegoatCharges+=2;
@@ -3180,6 +3588,9 @@ class GameUI{
   showGameOver(){
     sfx.gameOver();
     const g=this.game;
+    // Increment session count on failed run
+    const s=parseInt(localStorage.getItem('sweeper_sessions')||'47',10)+1;
+    localStorage.setItem('sweeper_sessions',String(s));
     const _mt=document.body.classList.contains('exe-mode')&&document.getElementById('exe-win-sweeper')||document.body;
     _mt.insertAdjacentHTML('beforeend',`
       <div class="modal-overlay" id="modal"><div class="modal game-over">
@@ -3276,27 +3687,65 @@ class GameUI{
   fmtTime(s){const m=Math.floor(s/60);return`${String(m).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;}
 
   saveGame(){
-    const s={level:this.game.level,shards:this.game.shards,timeRemaining:this.game.timeRemaining,maxTime:this.game.maxTime,
-      rows:this.game.rows,cols:this.game.cols,mineCount:this.game.mineCount,revealedCount:this.game.revealedCount,
-      firstClick:this.game.firstClick,powerups:[...this.game.powerups],
-      hardMode:this.game.hardMode,totalDepths:this.game.totalDepths,gameClass:this.game.gameClass,
-      modifiers:this.game.modifiers.map(m=>m.id),surged:this.game.surged,bargainCurseTime:this.game.bargainCurseTime,scapegoatCharges:this.game.scapegoatCharges,timeMultiplier:this.game.timeMultiplier,
-      board:this.game.board.map(row=>row.map(c=>({mine:c.mine,revealed:c.revealed,flagged:c.flagged,adjacent:c.adjacent})))};
-    localStorage.setItem('sweeper_save',JSON.stringify(s));
-    this.showToast('Marked','var(--accent)');
+    this.stopTimer();
+    const g=this.game;
+    const saves=JSON.parse(localStorage.getItem('sweeper_saves')||'{}');
+    const num=Object.keys(saves).length+1;
+    const name=`THOMAS_${String(num).padStart(3,'0')}.SAV`;
+    const winHTML=`
+    <div class="exe-titlebar exe-titlebar-alert"><div class="exe-ttext"><span>SWEEPER.EXE</span></div><div class="exe-tbtns"><button class="exe-tbtn exe-close-btn" title="Close window">&times;</button></div></div>
+    <div class="exe-modal-body">
+      <div class="exe-modal-icon">&#x1F4BE;</div>
+      <div class="exe-modal-text">Write session data to disk?<br><br><span style="font-family:monospace;font-size:10px;color:#404040;">${name}<br>Level ${g.level+1} &middot; ${g.shards} keys &middot; ${Math.floor(g.timeRemaining/60)}:${String(g.timeRemaining%60).padStart(2,'0')}</span></div>
+    </div>
+    <div class="exe-btn-row"><button class="exe-btn default" id="save-confirm">Write</button><button class="exe-btn" id="save-cancel">Cancel</button></div>`;
+    const win=this._renderWin('saveconfirm',winHTML);
+    win.querySelector('#save-cancel').addEventListener('click',()=>{this._closeWin('saveconfirm');this.startTimer();});
+    win.querySelector('#save-confirm').addEventListener('click',()=>{
+      const s={level:g.level,shards:g.shards,timeRemaining:g.timeRemaining,maxTime:g.maxTime,
+        rows:g.rows,cols:g.cols,mineCount:g.mineCount,revealedCount:g.revealedCount,
+        firstClick:g.firstClick,powerups:[...g.powerups],
+        hardMode:g.hardMode,totalDepths:g.totalDepths,gameClass:g.gameClass,
+        modifiers:g.modifiers.map(m=>m.id),surged:g.surged,bargainCurseTime:g.bargainCurseTime,scapegoatCharges:g.scapegoatCharges,timeMultiplier:g.timeMultiplier,
+        board:g.board.map(row=>row.map(c=>({mine:c.mine,revealed:c.revealed,flagged:c.flagged,adjacent:c.adjacent})))};
+      saves[name]=s;
+      localStorage.setItem('sweeper_saves',JSON.stringify(saves));
+      sfx.diskWrite();
+      this._closeWin('saveconfirm');
+      this.startTimer();
+    });
   }
 
   loadGame(){
-    const raw=localStorage.getItem('sweeper_save');
-    if(!raw){this.showToast('Nothing marked','var(--danger)');return;}
-    const s=JSON.parse(raw);const g=this.game;
-    g.level=s.level;g.shards=s.shards||0;g.timeRemaining=s.timeRemaining;g.maxTime=s.maxTime;
-    g.rows=s.rows;g.cols=s.cols;g.mineCount=s.mineCount;g.revealedCount=s.revealedCount;
-    g.firstClick=s.firstClick;g.powerups=s.powerups||[];g.gameOver=false;g.gameWon=false;g.board=s.board;
-    g.hardMode=!!s.hardMode;g.totalDepths=s.totalDepths||(g.hardMode?5:4);g.gameClass=s.gameClass||'sweeper';
-    g.modifiers=(s.modifiers||[]).map(id=>MODIFIERS.find(m=>m.id===id)).filter(Boolean);
-    g.surged=!!s.surged;g.bargainCurseTime=s.bargainCurseTime||0;g._fracShards=0;g.scapegoatCharges=s.scapegoatCharges||0;g.timeMultiplier=s.timeMultiplier||1;
-    this.renderBoard();this.startTimer();this.showToast('Unmarked','var(--accent)');
+    this.showMyComputer('C:\\PROGRAM FILES\\SWEEPER\\SAVES');
+  }
+
+  _loadSaveFile(name){
+    const saves=JSON.parse(localStorage.getItem('sweeper_saves')||'{}');
+    const s=saves[name];
+    if(!s)return;
+    const cls=classById(s.gameClass||'sweeper');
+    const timeStr=Math.floor(s.timeRemaining/60)+':'+String(s.timeRemaining%60).padStart(2,'0');
+    const winHTML=`
+    <div class="exe-titlebar exe-titlebar-alert"><div class="exe-ttext"><span>SWEEPER.EXE</span></div><div class="exe-tbtns"><button class="exe-tbtn exe-close-btn" title="Close window">&times;</button></div></div>
+    <div class="exe-modal-body">
+      <div class="exe-modal-icon">&#x1F4BE;</div>
+      <div class="exe-modal-text">Load session from disk?<br>Current progress will be lost.<br><br><span style="font-family:monospace;font-size:10px;color:#404040;">${name}<br>Level ${s.level+1} &middot; ${cls.name} &middot; ${s.shards} keys &middot; ${timeStr}</span></div>
+    </div>
+    <div class="exe-btn-row"><button class="exe-btn default" id="load-confirm">Load</button><button class="exe-btn" id="load-cancel">Cancel</button></div>`;
+    const win=this._renderWin('loadconfirm',winHTML);
+    win.querySelector('#load-cancel').addEventListener('click',()=>this._closeWin('loadconfirm'));
+    win.querySelector('#load-confirm').addEventListener('click',()=>{
+      this._closeWin('loadconfirm');
+      const g=this.game;
+      g.level=s.level;g.shards=s.shards||0;g.timeRemaining=s.timeRemaining;g.maxTime=s.maxTime;
+      g.rows=s.rows;g.cols=s.cols;g.mineCount=s.mineCount;g.revealedCount=s.revealedCount;
+      g.firstClick=s.firstClick;g.powerups=s.powerups||[];g.gameOver=false;g.gameWon=false;g.board=s.board;
+      g.hardMode=!!s.hardMode;g.totalDepths=s.totalDepths||(g.hardMode?5:4);g.gameClass=s.gameClass||'sweeper';
+      g.modifiers=(s.modifiers||[]).map(id=>MODIFIERS.find(m=>m.id===id)).filter(Boolean);
+      g.surged=!!s.surged;g.bargainCurseTime=s.bargainCurseTime||0;g._fracShards=0;g.scapegoatCharges=s.scapegoatCharges||0;g.timeMultiplier=s.timeMultiplier||1;
+      this.renderBoard();this.startTimer();
+    });
   }
 }
 
