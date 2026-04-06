@@ -1,0 +1,7 @@
+Dev Cheat Code
+
+• Use M to see where all mines are
+• Use I to enable invincibility, then test the UI
+• Use W to quickly skip through levels
+• Combine T + S for unlimited time and score
+• Press the key again to toggle (M and I)

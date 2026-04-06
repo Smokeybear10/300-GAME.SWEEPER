@@ -12,7 +12,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SWEEPER.EXE">
 <meta name="twitter:description" content="Recovered from an unregistered copy of SWEEPER.EXE. Trial expired. Session 00047. Tape is still running.">
-<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=VT323&display=swap" rel="stylesheet">
@@ -1520,18 +1520,15 @@ class SoundEngine {
     });
   }
 
-  // Startup chime — warm ascending for splash screen
+  // Windows XP startup sound
   startupChime(){
-    this.play((ctx,out)=>{
-      [440,554,659].forEach((freq,i)=>{
-        const o=ctx.createOscillator();const g=ctx.createGain();
-        o.type='sine';
-        o.frequency.setValueAtTime(freq,ctx.currentTime+i*0.15);
-        g.gain.setValueAtTime(0.1,ctx.currentTime+i*0.15);
-        g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+i*0.15+0.6);
-        o.connect(g).connect(out);
-        o.start(ctx.currentTime+i*0.15);o.stop(ctx.currentTime+i*0.15+0.6);
-      });
+    if(this.muted)return;
+    const a=new Audio('assets/audio/startup.mp3');
+    a.volume=0.5;
+    const p=a.play();
+    if(p)p.catch(()=>{
+      // Autoplay blocked — play on first user interaction
+      document.addEventListener('click',()=>a.play().catch(()=>{}),{once:true});
     });
   }
 
@@ -1607,17 +1604,11 @@ class SoundEngine {
     });
   }
 
-  // Shutdown hum — descending drone
+  // Windows XP shutdown sound
   shutdown(){
-    this.play((ctx,out)=>{
-      const o=ctx.createOscillator();const g=ctx.createGain();
-      o.type='sine';
-      o.frequency.setValueAtTime(300,ctx.currentTime);
-      o.frequency.exponentialRampToValueAtTime(60,ctx.currentTime+0.8);
-      g.gain.setValueAtTime(0.1,ctx.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.8);
-      o.connect(g).connect(out);o.start();o.stop(ctx.currentTime+0.8);
-    });
+    if(this.muted)return;
+    const a=new Audio('assets/audio/shutdown.mp3');
+    a.volume=0.5;a.play().catch(()=>{});
   }
 
   // Save to disk — floppy write sound
@@ -2161,7 +2152,7 @@ class GameUI{
     this._cheats={mines:false,invincible:false,infTime:false};
     this._bindExeChrome();
     this._bindCheatCodes();
-    this._runBootSequence(()=>this.showStart());
+    this._runBootSequence(()=>this._ensureShell());
   }
 
   _bindCheatCodes(){

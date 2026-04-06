@@ -1,16 +1,28 @@
-# SWEEPER | Minesweeper with teeth
+# SWEEPER.EXE
 
-Arcade-pressure minesweeper. Five depths, countdown timers, artifacts, procedural audio. Dark terminal aesthetic inspired by Inscryption.
+Minesweeper disguised as cursed shareware from 1997. Arcade pressure, escalating depths, CRT monitor, VHS artifacts, Windows 98 desktop. The trial expired 25 years ago. It still runs.
+
+![BIOS POST](assets/screenshots/boot.gif)
 
 ## Quick Start
 
 Open `index.html` in any browser. No install, no server, no dependencies.
 
-Or host it anywhere that serves static files (GitHub Pages, Netlify, etc).
+Or host anywhere that serves static files (GitHub Pages, Netlify, etc).
 
 ## What It Does
 
-You descend through 5 depths where the grid grows, mines multiply, and time shrinks. Hit a skull or run out of time and you're back to Depth 1.
+You found an old hard drive. There's one program on it. Double-click SWEEPER.EXE.
+
+![Desktop](assets/screenshots/desktop.gif)
+
+The system boots through a BIOS POST sequence, loads into a full Windows 98 desktop with draggable icons, a working taskbar, and a VHS timestamp frozen in January 1998. Session counter says 00047 of 00003 allowed. Something already happened here.
+
+![Lore](assets/screenshots/gameplay.gif)
+
+### The Game
+
+Descend through 5 depths. Grids grow, mines multiply, time shrinks. Hit a mine or run out of time and you restart from Depth 1.
 
 | Depth | Grid | Mines | Time |
 |-------|------|-------|------|
@@ -22,69 +34,78 @@ You descend through 5 depths where the grid grows, mines multiply, and time shri
 
 Half of your remaining time carries into the next depth.
 
-### Shop
+### Classes
 
-Earn shards by revealing tiles (1 per tile) and clearing depths (bonus). Between depths, spend shards in the shop:
+Choose a class before each run. Each changes how the game plays:
 
-- **The Eye** -- reveals one safe tile
-- **Hourglass** -- reclaims 20 seconds
-- **The Ward** -- absorbs one mine hit
-- **The Compass** -- auto-stakes 3 buried mines
-- **The Oracle** -- reveals a 3x3 safe region
-- **Rewind** -- restart current depth with a fresh board, keep your remaining time
-- **The Crown** -- claims 500 points
+- **Sweeper** -- default, no modifiers
+- **Wraith** -- mines shift after each reveal, but you move faster
+- **Eden** -- unlockable, tiles heal themselves
+- **Manna** -- unlockable, divine RNG manipulation
 
-Cursed artifacts appear rarely (~30% chance). Cheap, but at a cost:
+### Relics and Curses
 
-- **The Leech** -- reveals 5 safe tiles but devours 25 seconds
-- **Blood Tithe** -- auto-stakes 5 mines but your next hit ignores the Ward
-- **The Bargain** -- +45 seconds but sacrifices half your score
+Earn keys (shards) by revealing tiles and clearing depths. Spend them between depths on relics:
 
-Artifacts carry between levels. Click their badge during gameplay to activate.
+- **BACKUP** -- reclaims 20 seconds
+- **FIREWALL** -- absorbs your next mine hit
+- **SCANDISK** -- auto-marks 3 hidden mines
+- **DEFRAG** -- reveals a 2x2 region, marks mines
+- **TRACERT** -- reveals empty tiles touching a correct flag
+
+Cursed relics cost less but come with a price:
+
+- **SPYWARE** -- reveals 5 tiles as dead (no number info)
+- **ADWARE** -- +30 seconds, but key gain halved for 60s
+- **BLOATWARE** -- absorbs a hit, but halves your remaining time
+
+### The Desktop
+
+The entire game lives inside a simulated Windows 98 environment:
+
+- **SWEEPER.EXE** -- the game
+- **LORE.HLP** -- help file with lore entries
+- **My Computer** -- file browser with system files and secrets
+- **Recycle Bin** -- deleted files that shouldn't be readable
+- **COMMAND** -- working terminal (try `help`)
+- **AUTHOR.TXT** -- credits
+- **Start Menu** -- restart the system
+- **Taskbar** -- running apps, sound toggle, clock
+
+Windows are draggable and stackable. Desktop icons are draggable. The system boots, restarts, and plays authentic Windows XP startup/shutdown sounds.
 
 ### Controls
 
 - **Left-click** -- reveal a tile
-- **Right-click** (or long-press on mobile) -- place a stake (flag)
-- **Artifact badges** -- click to activate during gameplay
-
-### Shards
-
-Shards are the only currency. Earn them, spend them in the shop.
-
-- 1 shard per revealed tile
-- Combo bonus for rapid reveals (2+ in a row)
-- Depth bonus on clear (10 x depth)
-- Time bonus on clear (1 per 5 seconds remaining)
+- **Right-click** (or long-press on mobile) -- place a flag
+- **Relic badges** -- click during gameplay to activate
 
 ## Tech Stack
 
 | Layer | Tools |
 |-------|-------|
 | Game | Single-file HTML/CSS/JS |
-| Fonts | Space Grotesk, JetBrains Mono (Google Fonts) |
-| Audio | Web Audio API (procedural, no files) |
+| Fonts | Tahoma, JetBrains Mono, VT323, Space Grotesk |
+| Audio | Web Audio API (procedural) + MP3 for boot/shutdown |
 | Save | localStorage |
-| Visual | CRT scanlines, particle dust, drifting orbs, SVG icons |
+| Visual | CRT scanlines, VHS overlays, chromatic aberration, film grain |
 
 ## Project Structure
 
 ```
-index.html          # the entire game (HTML + CSS + JS)
-DESIGN.md           # full design system (colors, fonts, spacing, motion)
-src/                # original Java 17 / Swing desktop version
-  main/java/        #   game model, board, cell, save/load
-  test/java/        #   tests
-pom.xml             # Maven config (Java version only)
+index.html              # the entire game
+assets/
+  favicon.png
+  audio/
+    startup.mp3         # Windows XP startup sound
+    shutdown.mp3        # Windows XP shutdown sound
+  screenshots/
+    boot.gif            # BIOS POST sequence
+    desktop.gif         # Win98 desktop
+    gameplay.gif        # desktop interaction
+DESIGN.md               # full design system
+cis1200/                # original Java Swing version (UPenn CIS 1200)
 ```
-
-## Design
-
-See `DESIGN.md` for the full design system. Inscryption-inspired dark terminal aesthetic with CRT scanlines, runic level indicators, diegetic UI, and atmospheric procedural sound.
-
-## Java Version
-
-The original desktop version lives in `src/` (Java 17, Swing). Run with `mvn exec:java` if Maven is installed.
 
 ---
 
